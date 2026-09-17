@@ -14,3 +14,7 @@ export interface Message {
   read: boolean
   createdAt: string
 }
+
+export interface UnreadCount {
+  count: number
+}

@@ -5,6 +5,7 @@ import { Button } from 'primereact/button'
 import { Message } from 'primereact/message'
 import { Divider } from 'primereact/divider'
 import { Card } from 'primereact/card'
+import { messageService } from '@/services/messageService'
 import type { ContactFormData } from '@/types/message'
 
 // ===== INFO KONTAK ALTERNATIF =====
@@ -107,30 +108,26 @@ function Contact() {
 
   // ===== SUBMIT =====
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  e.preventDefault()
 
-    if (!validate()) return
+  if (!validate()) return
 
-    setSubmitting(true)
-    setSubmitError(null)
+  setSubmitting(true)
+  setSubmitError(null)
 
-    try {
-      // TODO Task 14: ganti jadi POST /api/messages
-      // const { data } = await api.post('/messages', formData)
+  try {
+    // POST ke backend
+    await messageService.send(formData)
 
-      // Sementara: simulate delay + log
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      console.log('📨 Form submitted:', formData)
-
-      setSubmitted(true)
-      setFormData({ name: '', email: '', subject: '', message: '' })
-    } catch (err) {
-      console.error('Submit error:', err)
-      setSubmitError('Gagal mengirim pesan. Coba lagi atau hubungi via email.')
-    } finally {
-      setSubmitting(false)
-    }
+    setSubmitted(true)
+    setFormData({ name: '', email: '', subject: '', message: '' })
+  } catch (err) {
+    console.error('Submit error:', err)
+    setSubmitError('Gagal mengirim pesan. Coba lagi atau hubungi via email.')
+  } finally {
+    setSubmitting(false)
   }
+}
 
   // ===== RESET =====
   const handleReset = () => {
