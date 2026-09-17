@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from 'primereact/card'
-import { Button } from 'primereact/button'
 import { Skeleton } from 'primereact/skeleton'
 import { projectService } from '@/services/projectService'
 import { messageService } from '@/services/messageService'
@@ -55,7 +54,7 @@ function Dashboard() {
 
   const statCards = [
     {
-      label: 'Projects',
+      label: 'Works',
       value: stats.projects,
       icon: 'pi pi-briefcase',
       color: '#3b82f6',
@@ -71,7 +70,7 @@ function Dashboard() {
       link: '/admin/skills',
     },
     {
-      label: 'Experiences',
+      label: 'Journey',
       value: stats.experiences,
       icon: 'pi pi-clock',
       color: '#10b981',
@@ -90,10 +89,10 @@ function Dashboard() {
 
   const quickActions = [
     {
-      label: 'Tambah Project',
+      label: 'Tambah Works',
       icon: 'pi pi-plus',
       link: '/admin/projects',
-      description: 'Bikin project baru',
+      description: 'Bikin karya baru',
     },
     {
       label: 'Edit Profile',
@@ -117,17 +116,15 @@ function Dashboard() {
 
   return (
     <div className="admin-dashboard">
-      {/* ===== WELCOME ===== */}
       <div className="admin-welcome">
         <h1 className="admin-welcome-title">
           Halo, {user?.username || 'Admin'}! 👋
         </h1>
         <p className="admin-welcome-subtitle">
-          Selamat datang di admin panel. Kelola portfolio kamu di sini.
+          Selamat datang di admin panel. Kelola portfolio & karya kamu di sini.
         </p>
       </div>
 
-      {/* ===== STATS ===== */}
       <div className="admin-stats-grid">
         {statCards.map((stat) => (
           <Link key={stat.label} to={stat.link} className="admin-stat-link">
@@ -156,19 +153,24 @@ function Dashboard() {
         ))}
       </div>
 
-      {/* ===== QUICK ACTIONS ===== */}
       <div className="admin-section">
         <h2 className="admin-section-title">Aksi Cepat</h2>
         <div className="admin-actions-grid">
           {quickActions.map((action) => (
-            <Link key={action.label} to={action.link} className="admin-action-link">
+            <Link
+              key={action.label}
+              to={action.link}
+              className="admin-action-link"
+            >
               <div className="admin-action-card">
                 <div className="admin-action-icon">
                   <i className={action.icon}></i>
                 </div>
                 <div className="admin-action-content">
                   <span className="admin-action-label">{action.label}</span>
-                  <span className="admin-action-desc">{action.description}</span>
+                  <span className="admin-action-desc">
+                    {action.description}
+                  </span>
                 </div>
                 <i className="pi pi-arrow-right admin-action-arrow"></i>
               </div>
@@ -177,7 +179,6 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* ===== INFO ===== */}
       <div className="admin-section">
         <h2 className="admin-section-title">Info</h2>
         <Card className="admin-info-card">

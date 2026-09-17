@@ -34,27 +34,24 @@ function ManageProjects() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
-  // Dialog
   const [dialogVisible, setDialogVisible] = useState(false)
   const [editingId, setEditingId] = useState<number | null>(null)
   const [form, setForm] = useState<ProjectFormData>(EMPTY_FORM)
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
 
-  // Search global
   const [globalFilter, setGlobalFilter] = useState('')
 
-  // ===== FETCH =====
   const fetchProjects = async () => {
     try {
       setLoading(true)
-      const data = await projectService.getAll(true) // all = termasuk draft
+      const data = await projectService.getAll(true)
       setProjects(data)
     } catch (err) {
       console.error(err)
       toast.current?.show({
         severity: 'error',
         summary: 'Error',
-        detail: 'Gagal memuat projects',
+        detail: 'Gagal memuat works',
         life: 3000,
       })
     } finally {
@@ -66,7 +63,6 @@ function ManageProjects() {
     fetchProjects()
   }, [])
 
-  // ===== OPEN DIALOG (CREATE) =====
   const openCreate = () => {
     setEditingId(null)
     setForm(EMPTY_FORM)
@@ -74,7 +70,6 @@ function ManageProjects() {
     setDialogVisible(true)
   }
 
-  // ===== OPEN DIALOG (EDIT) =====
   const openEdit = (project: Project) => {
     setEditingId(project.id)
     setForm({
@@ -93,7 +88,6 @@ function ManageProjects() {
     setDialogVisible(true)
   }
 
-  // ===== VALIDASI =====
   const validate = (): boolean => {
     const errors: Record<string, string> = {}
     if (!form.title.trim()) errors.title = 'Title wajib diisi'
@@ -105,7 +99,6 @@ function ManageProjects() {
     return Object.keys(errors).length === 0
   }
 
-  // ===== SAVE =====
   const handleSave = async () => {
     if (!validate()) return
 
@@ -116,7 +109,7 @@ function ManageProjects() {
         toast.current?.show({
           severity: 'success',
           summary: 'Berhasil',
-          detail: 'Project berhasil diupdate',
+          detail: 'Works berhasil diupdate',
           life: 3000,
         })
       } else {
@@ -124,7 +117,7 @@ function ManageProjects() {
         toast.current?.show({
           severity: 'success',
           summary: 'Berhasil',
-          detail: 'Project berhasil dibuat',
+          detail: 'Works berhasil dibuat',
           life: 3000,
         })
       }
@@ -144,10 +137,9 @@ function ManageProjects() {
     }
   }
 
-  // ===== DELETE =====
   const handleDelete = (project: Project) => {
     confirmDialog({
-      message: `Yakin hapus project "${project.title}"?`,
+      message: `Yakin hapus works "${project.title}"?`,
       header: 'Konfirmasi Hapus',
       icon: 'pi pi-exclamation-triangle',
       acceptClassName: 'p-button-danger',
@@ -157,7 +149,7 @@ function ManageProjects() {
           toast.current?.show({
             severity: 'success',
             summary: 'Berhasil',
-            detail: 'Project berhasil dihapus',
+            detail: 'Works berhasil dihapus',
             life: 3000,
           })
           fetchProjects()
@@ -166,7 +158,7 @@ function ManageProjects() {
           toast.current?.show({
             severity: 'error',
             summary: 'Gagal',
-            detail: 'Gagal menghapus project',
+            detail: 'Gagal menghapus works',
             life: 3000,
           })
         }
@@ -174,7 +166,6 @@ function ManageProjects() {
     })
   }
 
-  // ===== TEMPLATES =====
   const thumbnailTemplate = (row: Project) => {
     if (!row.thumbnailUrl) {
       return (
@@ -256,11 +247,11 @@ function ManageProjects() {
         <InputText
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Cari project..."
+          placeholder="Cari works..."
         />
       </span>
       <Button
-        label="Tambah Project"
+        label="Tambah Works"
         icon="pi pi-plus"
         onClick={openCreate}
       />
@@ -291,23 +282,21 @@ function ManageProjects() {
       <Toast ref={toast} />
       <ConfirmDialog />
 
-      {/* ===== HEADER ===== */}
       <div className="admin-page-header">
         <div>
-          <h1 className="admin-page-title">Manage Projects</h1>
+          <h1 className="admin-page-title">Manage Works</h1>
           <p className="admin-page-subtitle">
-            Kelola semua project portfolio kamu
+            Kelola semua karya kamu
           </p>
         </div>
         <Button
-          label="Tambah Project"
+          label="Tambah Works"
           icon="pi pi-plus"
           onClick={openCreate}
           className="admin-page-add-btn"
         />
       </div>
 
-      {/* ===== TABLE ===== */}
       <div className="admin-table-wrapper">
         <DataTable
           value={projects}
@@ -317,7 +306,7 @@ function ManageProjects() {
           paginator
           rows={10}
           rowsPerPageOptions={[5, 10, 25, 50]}
-          emptyMessage="Belum ada project. Klik 'Tambah Project' untuk mulai."
+          emptyMessage="Belum ada works. Klik 'Tambah Works' untuk mulai."
           responsiveLayout="scroll"
           stripedRows
           className="admin-table"
@@ -335,7 +324,7 @@ function ManageProjects() {
             style={{ minWidth: '200px' }}
           />
           <Column
-            header="Tech Stack"
+            header="Tools"
             body={techTemplate}
             style={{ minWidth: '200px' }}
           />
@@ -352,9 +341,8 @@ function ManageProjects() {
         </DataTable>
       </div>
 
-      {/* ===== DIALOG FORM ===== */}
       <Dialog
-        header={editingId ? 'Edit Project' : 'Tambah Project'}
+        header={editingId ? 'Edit Works' : 'Tambah Works'}
         visible={dialogVisible}
         onHide={() => setDialogVisible(false)}
         style={{ width: '700px', maxWidth: '95vw' }}
@@ -363,7 +351,6 @@ function ManageProjects() {
         blockScroll
       >
         <div className="admin-form">
-          {/* Title */}
           <div className="admin-form-field">
             <label className="admin-form-label">
               Title <span className="text-red-500">*</span>
@@ -371,7 +358,7 @@ function ManageProjects() {
             <InputText
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
-              placeholder="Nama project"
+              placeholder="Judul karya"
               className={formErrors.title ? 'p-invalid w-full' : 'w-full'}
               maxLength={200}
             />
@@ -380,7 +367,6 @@ function ManageProjects() {
             )}
           </div>
 
-          {/* Slug */}
           <div className="admin-form-field">
             <label className="admin-form-label">Slug</label>
             <InputText
@@ -395,12 +381,13 @@ function ManageProjects() {
             </small>
           </div>
 
-          {/* Description */}
           <div className="admin-form-field">
             <label className="admin-form-label">Description</label>
             <InputTextarea
               value={form.description || ''}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
               placeholder="Deskripsi singkat (maks 500 karakter)"
               rows={3}
               autoResize
@@ -412,20 +399,18 @@ function ManageProjects() {
             </small>
           </div>
 
-          {/* Content */}
           <div className="admin-form-field">
             <label className="admin-form-label">Content</label>
             <InputTextarea
               value={form.content || ''}
               onChange={(e) => setForm({ ...form, content: e.target.value })}
-              placeholder="Deskripsi lengkap project..."
+              placeholder="Deskripsi lengkap karya..."
               rows={6}
               autoResize
               className="w-full"
             />
           </div>
 
-          {/* Thumbnail URL */}
           <div className="admin-form-field">
             <label className="admin-form-label">Thumbnail URL</label>
             <InputText
@@ -438,9 +423,8 @@ function ManageProjects() {
             />
           </div>
 
-          {/* Tech Stack */}
           <div className="admin-form-field">
-            <label className="admin-form-label">Tech Stack</label>
+            <label className="admin-form-label">Tools</label>
             <Chips
               value={form.techStack || []}
               onChange={(e) =>
@@ -450,37 +434,35 @@ function ManageProjects() {
               className="w-full"
             />
             <small className="admin-form-hint">
-              Contoh: Java, Spring Boot, React
+              Contoh: Java, Spring Boot, React (atau tools lain sesuai bidang)
             </small>
           </div>
 
-          {/* GitHub & Demo URL */}
           <div className="admin-form-row">
             <div className="admin-form-field">
-              <label className="admin-form-label">GitHub URL</label>
+              <label className="admin-form-label">Link 1 (GitHub/dll)</label>
               <InputText
                 value={form.githubUrl || ''}
                 onChange={(e) =>
                   setForm({ ...form, githubUrl: e.target.value })
                 }
-                placeholder="https://github.com/..."
+                placeholder="https://..."
                 className="w-full"
               />
             </div>
             <div className="admin-form-field">
-              <label className="admin-form-label">Demo URL</label>
+              <label className="admin-form-label">Link 2 (Demo/dll)</label>
               <InputText
                 value={form.demoUrl || ''}
                 onChange={(e) =>
                   setForm({ ...form, demoUrl: e.target.value })
                 }
-                placeholder="https://demo.com"
+                placeholder="https://..."
                 className="w-full"
               />
             </div>
           </div>
 
-          {/* Toggles */}
           <div className="admin-form-row">
             <div className="admin-form-toggle">
               <InputSwitch

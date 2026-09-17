@@ -9,7 +9,6 @@ import { messageService } from '@/services/messageService'
 import type { ContactFormData } from '@/types/message'
 
 // ===== INFO KONTAK ALTERNATIF =====
-// Nanti bisa di-fetch dari profile API kalau mau
 const CONTACT_INFO = [
   {
     icon: 'pi pi-envelope',
@@ -60,19 +59,13 @@ function Contact() {
   const [submitted, setSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
-  // ===== HANDLE CHANGE =====
-  const handleChange = (
-    field: keyof ContactFormData,
-    value: string
-  ) => {
+  const handleChange = (field: keyof ContactFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
-    // Clear error saat user ngetik
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }))
     }
   }
 
-  // ===== VALIDASI =====
   const validate = (): boolean => {
     const newErrors: FormErrors = {}
 
@@ -106,30 +99,26 @@ function Contact() {
     return Object.keys(newErrors).length === 0
   }
 
-  // ===== SUBMIT =====
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
+    e.preventDefault()
 
-  if (!validate()) return
+    if (!validate()) return
 
-  setSubmitting(true)
-  setSubmitError(null)
+    setSubmitting(true)
+    setSubmitError(null)
 
-  try {
-    // POST ke backend
-    await messageService.send(formData)
-
-    setSubmitted(true)
-    setFormData({ name: '', email: '', subject: '', message: '' })
-  } catch (err) {
-    console.error('Submit error:', err)
-    setSubmitError('Gagal mengirim pesan. Coba lagi atau hubungi via email.')
-  } finally {
-    setSubmitting(false)
+    try {
+      await messageService.send(formData)
+      setSubmitted(true)
+      setFormData({ name: '', email: '', subject: '', message: '' })
+    } catch (err) {
+      console.error('Submit error:', err)
+      setSubmitError('Gagal mengirim pesan. Coba lagi atau hubungi via email.')
+    } finally {
+      setSubmitting(false)
+    }
   }
-}
 
-  // ===== RESET =====
   const handleReset = () => {
     setSubmitted(false)
     setSubmitError(null)
@@ -144,8 +133,8 @@ function Contact() {
         <div className="contact-hero-container">
           <h1 className="contact-title">Let's Talk! 👋</h1>
           <p className="contact-subtitle">
-            Punya project, pertanyaan, atau mau kolaborasi? Kirim pesan di bawah.
-            Saya biasanya balas dalam 1-2 hari.
+            Punya project, pertanyaan, atau mau kolaborasi? Kirim pesan di
+            bawah. Saya biasanya balas dalam 1-2 hari.
           </p>
         </div>
       </section>
@@ -158,15 +147,16 @@ function Contact() {
             <div className="contact-form-wrapper">
               <Card className="contact-form-card">
                 {submitted ? (
-                  // ===== SUCCESS STATE =====
                   <div className="contact-success">
                     <div className="contact-success-icon">
                       <i className="pi pi-check-circle"></i>
                     </div>
-                    <h2 className="contact-success-title">Pesan Terkirim! 🎉</h2>
+                    <h2 className="contact-success-title">
+                      Pesan Terkirim! 🎉
+                    </h2>
                     <p className="contact-success-desc">
-                      Terima kasih sudah menghubungi saya. Pesan kamu sudah masuk.
-                      Saya bakal balas secepatnya via email.
+                      Terima kasih sudah menghubungi saya. Pesan kamu sudah
+                      masuk. Saya bakal balas secepatnya via email.
                     </p>
                     <div className="flex gap-2 justify-content-center flex-wrap mt-4">
                       <Button
@@ -175,7 +165,7 @@ function Contact() {
                         onClick={handleReset}
                       />
                       <Button
-                        label="Lihat Projects"
+                        label="Lihat Works"
                         icon="pi pi-briefcase"
                         severity="secondary"
                         outlined
@@ -184,7 +174,6 @@ function Contact() {
                     </div>
                   </div>
                 ) : (
-                  // ===== FORM STATE =====
                   <form onSubmit={handleSubmit} className="contact-form">
                     <h2 className="contact-form-title">
                       <i className="pi pi-send mr-2"></i>
@@ -244,13 +233,19 @@ function Contact() {
                       <InputText
                         id="subject"
                         value={formData.subject}
-                        onChange={(e) => handleChange('subject', e.target.value)}
+                        onChange={(e) =>
+                          handleChange('subject', e.target.value)
+                        }
                         placeholder="Ada yang bisa saya bantu?"
-                        className={errors.subject ? 'p-invalid w-full' : 'w-full'}
+                        className={
+                          errors.subject ? 'p-invalid w-full' : 'w-full'
+                        }
                         maxLength={200}
                       />
                       {errors.subject && (
-                        <small className="contact-error">{errors.subject}</small>
+                        <small className="contact-error">
+                          {errors.subject}
+                        </small>
                       )}
                     </div>
 
@@ -262,22 +257,27 @@ function Contact() {
                       <InputTextarea
                         id="message"
                         value={formData.message}
-                        onChange={(e) => handleChange('message', e.target.value)}
+                        onChange={(e) =>
+                          handleChange('message', e.target.value)
+                        }
                         placeholder="Tulis pesan kamu di sini..."
                         rows={6}
                         autoResize
-                        className={errors.message ? 'p-invalid w-full' : 'w-full'}
+                        className={
+                          errors.message ? 'p-invalid w-full' : 'w-full'
+                        }
                         maxLength={2000}
                       />
                       <div className="contact-char-count">
                         {formData.message.length} / 2000
                       </div>
                       {errors.message && (
-                        <small className="contact-error">{errors.message}</small>
+                        <small className="contact-error">
+                          {errors.message}
+                        </small>
                       )}
                     </div>
 
-                    {/* Submit */}
                     <Button
                       type="submit"
                       label={submitting ? 'Mengirim...' : 'Kirim Pesan'}
@@ -315,7 +315,9 @@ function Contact() {
                           <a
                             href={info.href}
                             target={
-                              info.href.startsWith('http') ? '_blank' : undefined
+                              info.href.startsWith('http')
+                                ? '_blank'
+                                : undefined
                             }
                             rel="noopener noreferrer"
                             className="contact-info-value"
@@ -323,7 +325,9 @@ function Contact() {
                             {info.value}
                           </a>
                         ) : (
-                          <span className="contact-info-value">{info.value}</span>
+                          <span className="contact-info-value">
+                            {info.value}
+                          </span>
                         )}
                       </div>
                     </div>
@@ -352,11 +356,11 @@ function Contact() {
                   <p>Ya, saya open untuk freelance & full-time.</p>
                 </div>
                 <div className="contact-faq-item">
-                  <strong>Bisa bikin website custom?</strong>
+                  <strong>Bisa bikin karya custom?</strong>
                   <p>Bisa. Kirim detail project via form di samping.</p>
                 </div>
                 <div className="contact-faq-item">
-                  <strong>Berapa lama bikin website?</strong>
+                  <strong>Berapa lama prosesnya?</strong>
                   <p>Tergantung kompleksitas. Diskusi dulu via email.</p>
                 </div>
               </div>

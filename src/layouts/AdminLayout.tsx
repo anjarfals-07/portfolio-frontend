@@ -14,11 +14,11 @@ interface MenuItem {
 
 const MENU_ITEMS: MenuItem[] = [
   { label: 'Dashboard', icon: 'pi pi-home', path: '/admin' },
-  { label: 'Projects', icon: 'pi pi-briefcase', path: '/admin/projects' },
+  { label: 'Works', icon: 'pi pi-briefcase', path: '/admin/projects' },
   { label: 'Profile', icon: 'pi pi-user', path: '/admin/profile' },
   { label: 'Skills', icon: 'pi pi-chart-bar', path: '/admin/skills' },
-  { label: 'Experiences', icon: 'pi pi-clock', path: '/admin/experiences' },
-  { label: 'Tech Stack', icon: 'pi pi-server', path: '/admin/tech-stack' },
+  { label: 'Journey', icon: 'pi pi-clock', path: '/admin/experiences' },
+  { label: 'Tools', icon: 'pi pi-server', path: '/admin/tech-stack' },
   { label: 'Inbox', icon: 'pi pi-inbox', path: '/admin/inbox' },
 ]
 
@@ -34,9 +34,11 @@ function AdminLayout() {
 
   return (
     <div className="admin-wrapper">
-      {/* ===== SIDEBAR ===== */}
-      <aside className={`admin-sidebar ${sidebarOpen ? 'admin-sidebar-open' : ''}`}>
-        {/* Logo */}
+      <aside
+        className={`admin-sidebar ${
+          sidebarOpen ? 'admin-sidebar-open' : ''
+        }`}
+      >
         <div className="admin-sidebar-header">
           <Link to="/admin" className="admin-logo">
             <i className="pi pi-code text-2xl text-primary"></i>
@@ -44,7 +46,6 @@ function AdminLayout() {
           </Link>
         </div>
 
-        {/* Menu */}
         <nav className="admin-menu">
           {MENU_ITEMS.map((item) => (
             <NavLink
@@ -58,14 +59,11 @@ function AdminLayout() {
             >
               <i className={item.icon}></i>
               <span>{item.label}</span>
-              {item.badge && (
-                <Badge value={item.badge} severity="danger" />
-              )}
+              {item.badge && <Badge value={item.badge} severity="danger" />}
             </NavLink>
           ))}
         </nav>
 
-        {/* Footer Sidebar */}
         <div className="admin-sidebar-footer">
           <Link to="/" className="admin-menu-item">
             <i className="pi pi-external-link"></i>
@@ -74,7 +72,6 @@ function AdminLayout() {
         </div>
       </aside>
 
-      {/* Overlay mobile */}
       {sidebarOpen && (
         <div
           className="admin-overlay"
@@ -82,9 +79,7 @@ function AdminLayout() {
         ></div>
       )}
 
-      {/* ===== MAIN ===== */}
       <div className="admin-main">
-        {/* Header */}
         <header className="admin-header">
           <div className="admin-header-left">
             <Button
@@ -100,7 +95,6 @@ function AdminLayout() {
           </div>
 
           <div className="admin-header-right">
-            {/* User info */}
             <div className="admin-user">
               <Avatar
                 label={user?.username?.charAt(0).toUpperCase() || 'A'}
@@ -108,12 +102,15 @@ function AdminLayout() {
                 className="admin-user-avatar"
               />
               <div className="admin-user-info">
-                <span className="admin-user-name">{user?.username || 'Admin'}</span>
-                <span className="admin-user-role">{user?.role || 'ADMIN'}</span>
+                <span className="admin-user-name">
+                  {user?.username || 'Admin'}
+                </span>
+                <span className="admin-user-role">
+                  {user?.role || 'ADMIN'}
+                </span>
               </div>
             </div>
 
-            {/* Logout */}
             <Button
               icon="pi pi-sign-out"
               label="Logout"
@@ -125,7 +122,6 @@ function AdminLayout() {
           </div>
         </header>
 
-        {/* Content */}
         <main className="admin-content">
           <Outlet />
         </main>

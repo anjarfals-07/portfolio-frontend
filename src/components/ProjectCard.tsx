@@ -25,7 +25,7 @@ function ProjectCard({ project }: ProjectCardProps) {
   const footer = (
     <div className="flex gap-2 justify-content-between align-items-center">
       <Link to={`/projects/${project.slug}`} className="no-underline">
-        <Button label="Detail" icon="pi pi-arrow-right" iconPos="right" text />
+        <Button label="Lihat Detail" icon="pi pi-arrow-right" iconPos="right" text />
       </Link>
       <div className="flex gap-1">
         {project.githubUrl && (
@@ -66,7 +66,7 @@ function ProjectCard({ project }: ProjectCardProps) {
           <Tag value={`+${project.techStack.length - 4}`} severity="secondary" />
         )}
         {!project.techStack?.length && (
-          <Tag value="No tech" severity="secondary" />
+          <Tag value="No tools" severity="secondary" />
         )}
       </div>
     </Card>

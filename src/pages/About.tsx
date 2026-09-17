@@ -31,7 +31,6 @@ function About() {
         setLoading(true)
         setError(null)
 
-        // Fetch parallel — lebih cepat
         const [profileData, expData, skillData, techData] = await Promise.all([
           profileService.get(),
           experienceService.getAll(),
@@ -54,11 +53,13 @@ function About() {
     fetchAll()
   }, [])
 
-  // ===== LOADING =====
   if (loading) {
     return (
       <div className="page-container">
-        <div className="about-hero-container" style={{ marginBottom: '3rem' }}>
+        <div
+          className="about-hero-container"
+          style={{ marginBottom: '3rem' }}
+        >
           <Skeleton shape="circle" size="200px" />
           <div style={{ flex: 1 }}>
             <Skeleton width="8rem" height="1.5rem" className="mb-2" />
@@ -74,20 +75,18 @@ function About() {
     )
   }
 
-  // ===== ERROR =====
   if (error || !profile) {
     return (
       <div className="page-container">
         <Message
           severity="error"
-          text={error || 'Profil belum di-setup. Isi via admin panel atau SQL.'}
+          text={error || 'Profil belum di-setup. Isi via admin panel.'}
           className="w-full"
         />
       </div>
     )
   }
 
-  // ===== TIMELINE CUSTOM =====
   const customMarker = (item: Experience) => (
     <span
       className="timeline-marker"
@@ -113,7 +112,6 @@ function About() {
     </div>
   )
 
-  // ===== SKILLS GROUPED =====
   const skillGroups = Object.values(skills)
 
   return (
@@ -121,7 +119,6 @@ function About() {
       {/* ===== HERO / PROFIL ===== */}
       <section className="about-hero">
         <div className="about-hero-container">
-          {/* Avatar */}
           <div className="about-avatar-wrapper">
             {profile.avatarUrl ? (
               <img
@@ -136,7 +133,6 @@ function About() {
             )}
           </div>
 
-          {/* Info */}
           <div className="about-info">
             {profile.availableForWork && (
               <span className="about-badge">
@@ -150,7 +146,6 @@ function About() {
 
             {profile.bio && <p className="about-bio">{profile.bio}</p>}
 
-            {/* Kontak cepat */}
             <div className="about-quick-info">
               {profile.location && (
                 <div className="about-quick-item">
@@ -166,7 +161,6 @@ function About() {
               )}
             </div>
 
-            {/* Social links */}
             {profile.socials && profile.socials.length > 0 && (
               <div className="about-socials">
                 {profile.socials.map((s) => (
@@ -184,13 +178,16 @@ function About() {
               </div>
             )}
 
-            {/* CTA */}
             <div className="about-actions">
               <Link to="/contact">
                 <Button label="Hubungi Saya" icon="pi pi-envelope" />
               </Link>
               {profile.cvUrl ? (
-                <a href={profile.cvUrl} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={profile.cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Button
                     label="Download CV"
                     icon="pi pi-download"
@@ -219,9 +216,9 @@ function About() {
         <section className="section">
           <div className="section-container">
             <div className="section-header">
-              <h2 className="section-title">Tech Stack</h2>
+              <h2 className="section-title">Tools & Software</h2>
               <p className="section-subtitle">
-                Tools & teknologi yang saya pakai sehari-hari
+                Tools & software yang saya pakai sehari-hari
               </p>
             </div>
 
@@ -240,14 +237,14 @@ function About() {
 
       {experiences.length > 0 && <Divider />}
 
-      {/* ===== TIMELINE ===== */}
+      {/* ===== TIMELINE / JOURNEY ===== */}
       {experiences.length > 0 && (
         <section className="section">
           <div className="section-container">
             <div className="section-header">
-              <h2 className="section-title">Pengalaman & Pendidikan</h2>
+              <h2 className="section-title">Journey</h2>
               <p className="section-subtitle">
-                Perjalanan karier & pendidikan saya
+                Perjalanan karier & pengalaman saya
               </p>
             </div>
 
@@ -263,12 +260,12 @@ function About() {
 
       {skillGroups.length > 0 && <Divider />}
 
-      {/* ===== SKILLS ===== */}
+      {/* ===== SKILLS / EXPERTISE ===== */}
       {skillGroups.length > 0 && (
         <section className="section">
           <div className="section-container">
             <div className="section-header">
-              <h2 className="section-title">Skills</h2>
+              <h2 className="section-title">Expertise</h2>
               <p className="section-subtitle">Keahlian yang saya kuasai</p>
             </div>
 
@@ -277,7 +274,9 @@ function About() {
                 <div key={group.category} className="skill-category-card">
                   <div className="skill-category-header">
                     <i
-                      className={`${group.categoryIcon || 'pi pi-star'} text-2xl text-primary`}
+                      className={`${
+                        group.categoryIcon || 'pi pi-star'
+                      } text-2xl text-primary`}
                     ></i>
                     <h3 className="skill-category-title">{group.category}</h3>
                   </div>
@@ -287,7 +286,9 @@ function About() {
                       <div key={skill.id} className="skill-bar-item">
                         <div className="skill-bar-header">
                           <span className="skill-bar-name">{skill.name}</span>
-                          <span className="skill-bar-level">{skill.level}%</span>
+                          <span className="skill-bar-level">
+                            {skill.level}%
+                          </span>
                         </div>
                         <ProgressBar
                           value={skill.level}
@@ -310,7 +311,8 @@ function About() {
           <div className="cta-card">
             <h2 className="cta-title">Mau kerja sama?</h2>
             <p className="cta-desc">
-              Saya terbuka untuk freelance, full-time, atau sekadar ngobrol soal tech.
+              Saya terbuka untuk freelance, full-time, atau sekadar ngobrol
+              soal karya.
             </p>
             <div className="flex gap-2 justify-content-center flex-wrap">
               <Link to="/contact">
@@ -318,7 +320,7 @@ function About() {
               </Link>
               <Link to="/projects">
                 <Button
-                  label="Lihat Projects"
+                  label="Lihat Works"
                   icon="pi pi-briefcase"
                   severity="secondary"
                   outlined

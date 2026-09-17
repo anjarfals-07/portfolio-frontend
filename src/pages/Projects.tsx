@@ -25,17 +25,14 @@ function Projects() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // Filter & search
   const [search, setSearch] = useState('')
   const [selectedTech, setSelectedTech] = useState<string | null>(null)
   const [sortBy, setSortBy] = useState<SortOption>('newest')
   const [viewMode, setViewMode] = useState<ViewMode>('grid')
 
-  // Pagination
   const [first, setFirst] = useState(0)
   const [rows] = useState(6)
 
-  // Fetch data
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -45,7 +42,7 @@ function Projects() {
         setError(null)
       } catch (err) {
         console.error(err)
-        setError('Gagal memuat project. Pastikan backend jalan.')
+        setError('Gagal memuat works. Pastikan backend jalan.')
       } finally {
         setLoading(false)
       }
@@ -53,18 +50,17 @@ function Projects() {
     fetchProjects()
   }, [])
 
-  // Ambil semua tech unik buat filter
   const techOptions = useMemo(() => {
     const set = new Set<string>()
     projects.forEach((p) => p.techStack?.forEach((t) => set.add(t)))
-    return Array.from(set).sort().map((t) => ({ label: t, value: t }))
+    return Array.from(set)
+      .sort()
+      .map((t) => ({ label: t, value: t }))
   }, [projects])
 
-  // Filter + sort
   const filtered = useMemo(() => {
     let result = [...projects]
 
-    // Search by title/desc
     if (search.trim()) {
       const q = search.toLowerCase()
       result = result.filter(
@@ -74,18 +70,20 @@ function Projects() {
       )
     }
 
-    // Filter by tech
     if (selectedTech) {
       result = result.filter((p) => p.techStack?.includes(selectedTech))
     }
 
-    // Sort
     result.sort((a, b) => {
       switch (sortBy) {
         case 'newest':
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
         case 'oldest':
-          return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          return (
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          )
         case 'title-asc':
           return a.title.localeCompare(b.title)
         case 'title-desc':
@@ -98,7 +96,6 @@ function Projects() {
     return result
   }, [projects, search, selectedTech, sortBy])
 
-  // Paginated
   const paginated = useMemo(
     () => filtered.slice(first, first + rows),
     [filtered, first, rows]
@@ -117,7 +114,6 @@ function Projects() {
 
   const hasFilter = !!search.trim() || !!selectedTech || sortBy !== 'newest'
 
-  // ===== LOADING =====
   if (loading) {
     return (
       <div className="page-container">
@@ -142,7 +138,6 @@ function Projects() {
     )
   }
 
-  // ===== ERROR =====
   if (error) {
     return (
       <div className="page-container">
@@ -155,17 +150,16 @@ function Projects() {
     <div className="page-container">
       {/* ===== HEADER ===== */}
       <div className="projects-header">
-        <h1 className="projects-title">My Projects</h1>
+        <h1 className="projects-title">My Works</h1>
         <p className="projects-subtitle">
-          Kumpulan project yang pernah saya kerjakan —{' '}
-          <strong>{projects.length}</strong> project total
+          Kumpulan karya yang pernah saya kerjakan —{' '}
+          <strong>{projects.length}</strong> works total
         </p>
       </div>
 
       {/* ===== TOOLBAR ===== */}
       {projects.length > 0 && (
         <div className="projects-toolbar">
-          {/* Search */}
           <span className="projects-search">
             <i className="pi pi-search"></i>
             <InputText
@@ -174,12 +168,11 @@ function Projects() {
                 setSearch(e.target.value)
                 setFirst(0)
               }}
-              placeholder="Cari project..."
+              placeholder="Cari works..."
               className="w-full"
             />
           </span>
 
-          {/* Filter tech */}
           <Dropdown
             value={selectedTech}
             options={techOptions}
@@ -187,12 +180,11 @@ function Projects() {
               setSelectedTech(e.value)
               setFirst(0)
             }}
-            placeholder="Semua Tech"
+            placeholder="Semua Tools"
             showClear
             className="projects-filter"
           />
 
-          {/* Sort */}
           <Dropdown
             value={sortBy}
             options={SORT_OPTIONS}
@@ -200,7 +192,6 @@ function Projects() {
             className="projects-sort"
           />
 
-          {/* View toggle */}
           <div className="projects-view-toggle">
             <Button
               icon="pi pi-th-large"
@@ -263,7 +254,7 @@ function Projects() {
       {projects.length > 0 && (
         <div className="projects-result-count">
           Menampilkan <strong>{paginated.length}</strong> dari{' '}
-          <strong>{filtered.length}</strong> project
+          <strong>{filtered.length}</strong> works
         </div>
       )}
 
@@ -271,7 +262,7 @@ function Projects() {
       {projects.length === 0 && (
         <Message
           severity="info"
-          text="Belum ada project. Tambah via API atau admin panel nanti."
+          text="Belum ada works. Tambah via admin panel."
           className="w-full"
         />
       )}
@@ -280,11 +271,15 @@ function Projects() {
       {projects.length > 0 && filtered.length === 0 && (
         <div className="projects-empty">
           <i className="pi pi-search text-5xl text-color-secondary"></i>
-          <h3>Tidak ada project yang cocok</h3>
+          <h3>Tidak ada works yang cocok</h3>
           <p className="text-color-secondary">
             Coba ubah kata kunci atau reset filter.
           </p>
-          <Button label="Reset Filter" icon="pi pi-refresh" onClick={clearFilters} />
+          <Button
+            label="Reset Filter"
+            icon="pi pi-refresh"
+            onClick={clearFilters}
+          />
         </div>
       )}
 

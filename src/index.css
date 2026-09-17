@@ -3114,3 +3114,325 @@ a.contact-info-value:hover {
     font-size: 0.8rem;
   }
 }
+
+
+/* ============================================
+   ADMIN EXPERIENCES PAGE
+   ============================================ */
+
+/* ===== Marker di tabel ===== */
+.admin-exp-marker {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Title Cell ===== */
+.admin-exp-title-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.admin-exp-year {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #3b82f6;
+  background: #eff6ff;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  margin-bottom: 0.15rem;
+}
+
+.admin-exp-title {
+  font-size: 0.95rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.admin-exp-subtitle {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* ============================================
+   ICON PICKER (di dialog)
+   ============================================ */
+
+.admin-icon-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.admin-icon-picker-preview {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6;
+  flex-shrink: 0;
+}
+
+.admin-icon-picker input {
+  flex: 1;
+  padding: 0.5rem 0.75rem !important;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem !important;
+  background: transparent;
+  border: none !important;
+  outline: none;
+}
+
+.admin-icon-presets {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.admin-icon-preset {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 6px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 0.95rem;
+}
+
+.admin-icon-preset:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+  background: #eff6ff;
+}
+
+.admin-icon-preset-active {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  color: white;
+}
+
+.admin-icon-preset-active:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: white;
+}
+
+/* ============================================
+   COLOR PICKER (di dialog)
+   ============================================ */
+
+.admin-color-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.admin-color-preview {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.2);
+}
+
+.admin-color-picker input {
+  flex: 1;
+  padding: 0.5rem 0.75rem !important;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem !important;
+  background: transparent;
+  border: none !important;
+  outline: none;
+}
+
+.admin-color-presets {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.admin-color-preset {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  padding: 0;
+  box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.15);
+}
+
+.admin-color-preset:hover {
+  transform: scale(1.1);
+}
+
+.admin-color-preset-active {
+  border-color: white;
+  box-shadow: 0 0 0 2px #0f172a, 0 2px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .admin-exp-marker {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.85rem;
+  }
+
+  .admin-icon-preset,
+  .admin-color-preset {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .admin-color-preset {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+/* ============================================
+   ADMIN TECH STACK PAGE
+   ============================================ */
+
+/* ===== Icon di tabel ===== */
+.admin-tech-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+.admin-tech-name {
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.admin-tech-chip-preview {
+  background: white !important;
+  border: 1px solid #e2e8f0 !important;
+  font-weight: 500;
+}
+
+.admin-tech-chip-preview .pi-check {
+  color: #10b981;
+  font-size: 0.8rem;
+}
+
+/* ===== Preview Section ===== */
+.admin-tech-preview-section {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.admin-tech-preview-label {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.admin-tech-preview-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-tech-preview-chips .p-chip {
+  background: white;
+  border: 1px solid #e2e8f0;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s;
+}
+
+.admin-tech-preview-chips .p-chip:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.admin-tech-preview-chips .p-chip .pi-check {
+  color: #10b981;
+  font-size: 0.8rem;
+}
+
+/* ===== Chip Preview Box (di dialog) ===== */
+.admin-tech-chip-preview-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  min-height: 60px;
+}
+
+.admin-tech-chip-preview-box .p-chip {
+  background: white;
+  border: 1px solid #e2e8f0;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+}
+
+.admin-tech-chip-preview-box .p-chip .pi-check {
+  color: #10b981;
+  font-size: 0.8rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .admin-tech-icon {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+
+  .admin-tech-preview-chips .p-chip {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+  }
+}

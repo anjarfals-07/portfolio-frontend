@@ -18,13 +18,13 @@ function Footer() {
             <span className="font-bold text-lg">Portfolio</span>
           </div>
           <p className="text-sm text-color-secondary m-0">
-            Full-Stack Developer — Java • Spring Boot • React
+            Creative Professional — Portfolio & Works
           </p>
         </div>
 
         <div className="footer-links">
           <Link to="/" className="footer-link">Home</Link>
-          <Link to="/projects" className="footer-link">Projects</Link>
+          <Link to="/projects" className="footer-link">Works</Link>
           <Link to="/about" className="footer-link">About</Link>
           <Link to="/contact" className="footer-link">Contact</Link>
         </div>

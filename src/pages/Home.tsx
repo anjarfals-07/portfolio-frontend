@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'primereact/button'
-import { Tag } from 'primereact/tag'
 import { Skeleton } from 'primereact/skeleton'
 import { Message } from 'primereact/message'
 import { Divider } from 'primereact/divider'
@@ -9,6 +8,7 @@ import ProjectCard from '@/components/ProjectCard'
 import { projectService } from '@/services/projectService'
 import type { Project } from '@/types/project'
 
+// ===== GANTI SKILLS SESUAI BIDANG KAMU =====
 const SKILLS = [
   { label: 'Java', icon: 'pi pi-server' },
   { label: 'Spring Boot', icon: 'pi pi-bolt' },
@@ -32,7 +32,7 @@ function Home() {
         setError(null)
       } catch (err) {
         console.error(err)
-        setError('Gagal memuat project unggulan.')
+        setError('Gagal memuat karya unggulan.')
       } finally {
         setLoading(false)
       }
@@ -56,20 +56,18 @@ function Home() {
               Hi, saya <span className="text-primary">Anjar</span> 👋
             </h1>
 
-            <h2 className="hero-subtitle">
-              Full-Stack Developer
-            </h2>
+            <h2 className="hero-subtitle">Creative Professional</h2>
 
             <p className="hero-desc">
-              Saya membangun aplikasi web end-to-end dengan <strong>Java Spring Boot</strong> di backend
-              dan <strong>React + TypeScript</strong> di frontend. Fokus pada kode yang bersih,
-              performa, dan pengalaman pengguna yang baik.
+              Saya membuat karya yang bermakna dan berkualitas. Fokus pada
+              detail, estetika, dan pengalaman yang berkesan untuk setiap
+              project.
             </p>
 
             <div className="hero-actions">
               <Link to="/projects">
                 <Button
-                  label="Lihat Projects"
+                  label="Lihat Works"
                   icon="pi pi-briefcase"
                   size="large"
                 />
@@ -100,9 +98,9 @@ function Home() {
       <section className="section">
         <div className="section-container">
           <div className="section-header">
-            <h2 className="section-title">Tech Stack</h2>
+            <h2 className="section-title">Skills & Tools</h2>
             <p className="section-subtitle">
-              Tools yang saya pakai sehari-hari
+              Keahlian & tools yang saya pakai sehari-hari
             </p>
           </div>
 
@@ -119,14 +117,14 @@ function Home() {
 
       <Divider />
 
-      {/* ===== FEATURED PROJECTS ===== */}
+      {/* ===== HIGHLIGHTED WORKS ===== */}
       <section className="section">
         <div className="section-container">
           <div className="section-header-flex">
             <div>
-              <h2 className="section-title">Featured Projects</h2>
+              <h2 className="section-title">Highlighted Works</h2>
               <p className="section-subtitle">
-                Project pilihan yang saya banggakan
+                Karya pilihan yang saya banggakan
               </p>
             </div>
             <Link to="/projects">
@@ -161,7 +159,7 @@ function Home() {
           {!loading && !error && featured.length === 0 && (
             <Message
               severity="info"
-              text="Belum ada project featured. Tambahkan lewat admin panel nanti."
+              text="Belum ada karya unggulan. Tambahkan via admin panel."
               className="w-full"
             />
           )}
@@ -184,15 +182,12 @@ function Home() {
           <div className="cta-card">
             <h2 className="cta-title">Punya project atau mau kolaborasi?</h2>
             <p className="cta-desc">
-              Saya terbuka untuk freelance, full-time, atau sekadar ngobrol soal tech.
+              Saya terbuka untuk freelance, full-time, atau sekadar ngobrol
+              soal karya.
             </p>
             <div className="flex gap-2 justify-content-center flex-wrap">
               <Link to="/contact">
-                <Button
-                  label="Kirim Pesan"
-                  icon="pi pi-send"
-                  size="large"
-                />
+                <Button label="Kirim Pesan" icon="pi pi-send" size="large" />
               </Link>
               <a
                 href="https://github.com/anjarfals-07"
@@ -200,8 +195,8 @@ function Home() {
                 rel="noopener noreferrer"
               >
                 <Button
-                  label="GitHub Saya"
-                  icon="pi pi-github"
+                  label="Portfolio Lain"
+                  icon="pi pi-external-link"
                   severity="secondary"
                   outlined
                   size="large"

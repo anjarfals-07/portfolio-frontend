@@ -8,7 +8,6 @@ import { InputNumber } from 'primereact/inputnumber'
 import { Dropdown } from 'primereact/dropdown'
 import { Toast } from 'primereact/toast'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
-import { Tag } from 'primereact/tag'
 import { ProgressBar } from 'primereact/progressbar'
 import { skillService } from '@/services/skillService'
 import type { Skill } from '@/types/skill'
@@ -22,19 +21,19 @@ interface SkillForm {
 }
 
 const EMPTY_FORM: SkillForm = {
-  category: 'Backend',
-  categoryIcon: 'pi pi-server',
+  category: 'Technical',
+  categoryIcon: 'pi pi-wrench',
   name: '',
   level: 50,
   sortOrder: 0,
 }
 
 const CATEGORY_OPTIONS = [
-  { label: 'Backend', value: 'Backend', icon: 'pi pi-server' },
-  { label: 'Frontend', value: 'Frontend', icon: 'pi pi-code' },
-  { label: 'Tools & DevOps', value: 'Tools & DevOps', icon: 'pi pi-wrench' },
-  { label: 'Database', value: 'Database', icon: 'pi pi-database' },
-  { label: 'Mobile', value: 'Mobile', icon: 'pi pi-mobile' },
+  { label: 'Technical', value: 'Technical', icon: 'pi pi-wrench' },
+  { label: 'Creative', value: 'Creative', icon: 'pi pi-palette' },
+  { label: 'Tools & Software', value: 'Tools & Software', icon: 'pi pi-desktop' },
+  { label: 'Soft Skills', value: 'Soft Skills', icon: 'pi pi-users' },
+  { label: 'Languages', value: 'Languages', icon: 'pi pi-globe' },
   { label: 'Other', value: 'Other', icon: 'pi pi-star' },
 ]
 
@@ -45,17 +44,14 @@ function ManageSkills() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
-  // Dialog
   const [dialogVisible, setDialogVisible] = useState(false)
   const [editingId, setEditingId] = useState<number | null>(null)
   const [form, setForm] = useState<SkillForm>(EMPTY_FORM)
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
 
-  // Filter
   const [globalFilter, setGlobalFilter] = useState('')
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null)
 
-  // ===== FETCH =====
   const fetchSkills = async () => {
     try {
       setLoading(true)
@@ -78,7 +74,6 @@ function ManageSkills() {
     fetchSkills()
   }, [])
 
-  // ===== OPEN DIALOG =====
   const openCreate = () => {
     setEditingId(null)
     setForm(EMPTY_FORM)
@@ -89,8 +84,8 @@ function ManageSkills() {
   const openEdit = (skill: Skill) => {
     setEditingId(skill.id)
     setForm({
-      category: skill.category || 'Backend',
-      categoryIcon: skill.categoryIcon || 'pi pi-server',
+      category: skill.category || 'Technical',
+      categoryIcon: skill.categoryIcon || 'pi pi-wrench',
       name: skill.name,
       level: skill.level,
       sortOrder: skill.sortOrder,
@@ -99,7 +94,6 @@ function ManageSkills() {
     setDialogVisible(true)
   }
 
-  // ===== VALIDASI =====
   const validate = (): boolean => {
     const errors: Record<string, string> = {}
 
@@ -121,7 +115,6 @@ function ManageSkills() {
     return Object.keys(errors).length === 0
   }
 
-  // ===== SAVE =====
   const handleSave = async () => {
     if (!validate()) return
 
@@ -160,7 +153,6 @@ function ManageSkills() {
     }
   }
 
-  // ===== DELETE =====
   const handleDelete = (skill: Skill) => {
     confirmDialog({
       message: `Yakin hapus skill "${skill.name}"?`,
@@ -190,7 +182,6 @@ function ManageSkills() {
     })
   }
 
-  // ===== HANDLE CATEGORY CHANGE =====
   const handleCategoryChange = (category: string) => {
     const opt = CATEGORY_OPTIONS.find((c) => c.value === category)
     setForm({
@@ -200,7 +191,6 @@ function ManageSkills() {
     })
   }
 
-  // ===== TEMPLATES =====
   const categoryTemplate = (row: Skill) => (
     <div className="admin-category-cell">
       <i className={`${row.categoryIcon || 'pi pi-star'} text-primary`}></i>
@@ -296,12 +286,11 @@ function ManageSkills() {
       <Toast ref={toast} />
       <ConfirmDialog />
 
-      {/* ===== HEADER ===== */}
       <div className="admin-page-header">
         <div>
           <h1 className="admin-page-title">Manage Skills</h1>
           <p className="admin-page-subtitle">
-            Kelola skill & keahlian kamu ({skills.length} total)
+            Kelola skills & keahlian kamu ({skills.length} total)
           </p>
         </div>
         <Button
@@ -312,14 +301,15 @@ function ManageSkills() {
         />
       </div>
 
-      {/* ===== TABLE ===== */}
       <div className="admin-table-wrapper">
         <DataTable
           value={skills}
           loading={loading}
           header={header}
           globalFilter={globalFilter}
-          filters={{ category: { value: categoryFilter, matchMode: 'equals' } }}
+          filters={{
+            category: { value: categoryFilter, matchMode: 'equals' },
+          }}
           globalFilterFields={['name', 'category']}
           paginator
           rows={10}
@@ -369,7 +359,6 @@ function ManageSkills() {
         </DataTable>
       </div>
 
-      {/* ===== DIALOG FORM ===== */}
       <Dialog
         header={editingId ? 'Edit Skill' : 'Tambah Skill'}
         visible={dialogVisible}
@@ -380,7 +369,6 @@ function ManageSkills() {
         blockScroll
       >
         <div className="admin-form">
-          {/* Category */}
           <div className="admin-form-field">
             <label className="admin-form-label">
               Kategori <span className="text-red-500">*</span>
@@ -393,11 +381,12 @@ function ManageSkills() {
               className="w-full"
             />
             {formErrors.category && (
-              <small className="admin-form-error">{formErrors.category}</small>
+              <small className="admin-form-error">
+                {formErrors.category}
+              </small>
             )}
           </div>
 
-          {/* Category Icon (auto-filled) */}
           <div className="admin-form-field">
             <label className="admin-form-label">Icon Kategori</label>
             <div className="admin-icon-preview">
@@ -407,7 +396,7 @@ function ManageSkills() {
                 onChange={(e) =>
                   setForm({ ...form, categoryIcon: e.target.value })
                 }
-                placeholder="pi pi-server"
+                placeholder="pi pi-wrench"
                 className="w-full"
               />
             </div>
@@ -416,7 +405,6 @@ function ManageSkills() {
             </small>
           </div>
 
-          {/* Name */}
           <div className="admin-form-field">
             <label className="admin-form-label">
               Nama Skill <span className="text-red-500">*</span>
@@ -424,7 +412,7 @@ function ManageSkills() {
             <InputText
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="Java, React, PostgreSQL..."
+              placeholder="Java, React, Photography..."
               className={formErrors.name ? 'p-invalid w-full' : 'w-full'}
               maxLength={100}
             />
@@ -433,7 +421,6 @@ function ManageSkills() {
             )}
           </div>
 
-          {/* Level */}
           <div className="admin-form-field">
             <label className="admin-form-label">
               Level (0-100) <span className="text-red-500">*</span>
@@ -455,7 +442,9 @@ function ManageSkills() {
                   showValue={false}
                   style={{ height: '8px' }}
                 />
-                <span className="admin-level-preview-value">{form.level}%</span>
+                <span className="admin-level-preview-value">
+                  {form.level}%
+                </span>
               </div>
             </div>
             {formErrors.level && (
@@ -463,7 +452,6 @@ function ManageSkills() {
             )}
           </div>
 
-          {/* Sort Order */}
           <div className="admin-form-field">
             <label className="admin-form-label">Urutan</label>
             <InputNumber

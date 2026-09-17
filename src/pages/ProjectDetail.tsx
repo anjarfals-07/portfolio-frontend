@@ -19,7 +19,7 @@ function ProjectDetail() {
   useEffect(() => {
     const fetchProject = async () => {
       if (!slug) {
-        setError('Slug project tidak valid')
+        setError('Slug works tidak valid')
         setLoading(false)
         return
       }
@@ -31,7 +31,7 @@ function ProjectDetail() {
         setError(null)
       } catch (err) {
         console.error(err)
-        setError('Project tidak ditemukan.')
+        setError('Works tidak ditemukan.')
       } finally {
         setLoading(false)
       }
@@ -40,7 +40,6 @@ function ProjectDetail() {
     fetchProject()
   }, [slug])
 
-  // ===== LOADING =====
   if (loading) {
     return (
       <div className="page-container">
@@ -55,19 +54,18 @@ function ProjectDetail() {
     )
   }
 
-  // ===== ERROR =====
   if (error || !project) {
     return (
       <div className="page-container">
         <div className="detail-notfound">
           <i className="pi pi-exclamation-triangle text-6xl text-orange-500"></i>
-          <h1 className="mt-4">Project Tidak Ditemukan</h1>
+          <h1 className="mt-4">Works Tidak Ditemukan</h1>
           <p className="text-color-secondary">
-            {error || 'Project yang kamu cari nggak ada atau udah dihapus.'}
+            {error || 'Works yang kamu cari nggak ada atau udah dihapus.'}
           </p>
           <div className="flex gap-2 justify-content-center flex-wrap">
             <Link to="/projects">
-              <Button label="Lihat Semua Project" icon="pi pi-arrow-left" />
+              <Button label="Lihat Semua Works" icon="pi pi-arrow-left" />
             </Link>
             <Button
               label="Kembali"
@@ -82,14 +80,13 @@ function ProjectDetail() {
     )
   }
 
-  // ===== SUCCESS =====
   return (
     <div className="page-container detail-container">
-      {/* ===== BREADCRUMB / BACK ===== */}
+      {/* ===== BREADCRUMB ===== */}
       <div className="detail-breadcrumb">
         <Link to="/projects" className="detail-back-link">
           <i className="pi pi-arrow-left"></i>
-          <span>Kembali ke Projects</span>
+          <span>Kembali ke Works</span>
         </Link>
       </div>
 
@@ -97,11 +94,7 @@ function ProjectDetail() {
       <div className="detail-header">
         <div className="detail-header-left">
           {project.featured && (
-            <Tag
-              value="⭐ Featured"
-              severity="warning"
-              className="mb-2"
-            />
+            <Tag value="⭐ Featured" severity="warning" className="mb-2" />
           )}
 
           <h1 className="detail-title">{project.title}</h1>
@@ -113,7 +106,7 @@ function ProjectDetail() {
           {/* ===== TECH STACK ===== */}
           {project.techStack && project.techStack.length > 0 && (
             <div className="detail-tech">
-              <span className="detail-tech-label">Tech Stack:</span>
+              <span className="detail-tech-label">Tools:</span>
               <div className="flex flex-wrap gap-2">
                 {project.techStack.map((tech) => (
                   <Tag key={tech} value={tech} severity="info" />
@@ -131,8 +124,8 @@ function ProjectDetail() {
                 rel="noopener noreferrer"
               >
                 <Button
-                  label="Lihat di GitHub"
-                  icon="pi pi-github"
+                  label="Lihat Detail"
+                  icon="pi pi-external-link"
                   severity="secondary"
                   outlined
                 />
@@ -144,16 +137,13 @@ function ProjectDetail() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button
-                  label="Live Demo"
-                  icon="pi pi-external-link"
-                />
+                <Button label="Lihat Live" icon="pi pi-external-link" />
               </a>
             )}
             {!project.githubUrl && !project.demoUrl && (
               <Message
                 severity="info"
-                text="Belum ada link GitHub atau Demo untuk project ini."
+                text="Belum ada link untuk works ini."
               />
             )}
           </div>
@@ -224,7 +214,7 @@ function ProjectDetail() {
         <div className="detail-content">
           <h2 className="detail-section-title">
             <i className="pi pi-file-edit mr-2"></i>
-            Tentang Project
+            Tentang Karya
           </h2>
           <div className="detail-content-body">
             {project.content.split('\n').map((paragraph, idx) => (
@@ -235,7 +225,7 @@ function ProjectDetail() {
       ) : (
         <Message
           severity="info"
-          text="Deskripsi lengkap belum ditambahkan untuk project ini."
+          text="Deskripsi lengkap belum ditambahkan."
           className="w-full"
         />
       )}
@@ -245,7 +235,7 @@ function ProjectDetail() {
       {/* ===== CTA ===== */}
       <div className="detail-cta">
         <div>
-          <h3 className="detail-cta-title">Tertarik dengan project ini?</h3>
+          <h3 className="detail-cta-title">Tertarik dengan karya ini?</h3>
           <p className="detail-cta-desc">
             Ada pertanyaan atau mau kolaborasi? Hubungi saya.
           </p>
@@ -256,7 +246,7 @@ function ProjectDetail() {
           </Link>
           <Link to="/projects">
             <Button
-              label="Project Lain"
+              label="Works Lain"
               icon="pi pi-briefcase"
               severity="secondary"
               outlined

@@ -12,6 +12,8 @@ import Dashboard from '@/pages/admin/Dashboard'
 import ManageProjects from '@/pages/admin/ManageProjects'
 import ManageProfile from '@/pages/admin/ManageProfile'
 import ManageSkills from '@/pages/admin/ManageSkills'
+import ManageExperiences from '@/pages/admin/ManageExperiences'
+import ManageTechStack from '@/pages/admin/ManageTechStack'
 import ProtectedRoute from '@/components/ProtectedRoute'
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
             <Route path="/admin/projects" element={<ManageProjects />} />
             <Route path="/admin/profile" element={<ManageProfile />} />
             <Route path="/admin/skills" element={<ManageSkills />} />
+            <Route path="/admin/experiences" element={<ManageExperiences />} />
+            <Route path="/admin/tech-stack" element={<ManageTechStack />} />
           </Route>
         </Route>
 

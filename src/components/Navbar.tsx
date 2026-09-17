@@ -10,7 +10,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { label: 'Home', path: '/', icon: 'pi pi-home' },
-  { label: 'Projects', path: '/projects', icon: 'pi pi-briefcase' },
+  { label: 'Works', path: '/projects', icon: 'pi pi-briefcase' },
   { label: 'About', path: '/about', icon: 'pi pi-user' },
   { label: 'Contact', path: '/contact', icon: 'pi pi-envelope' },
 ]
@@ -21,13 +21,11 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* Logo */}
         <NavLink to="/" className="navbar-logo">
           <i className="pi pi-code text-2xl text-primary"></i>
           <span className="font-bold text-xl ml-2">Portfolio</span>
         </NavLink>
 
-        {/* Desktop Menu */}
         <div className="navbar-menu-desktop">
           {NAV_ITEMS.map((item) => (
             <NavLink
@@ -43,7 +41,6 @@ function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Toggle */}
         <Button
           icon={mobileOpen ? 'pi pi-times' : 'pi pi-bars'}
           className="navbar-toggle p-button-text p-button-plain"
@@ -52,7 +49,6 @@ function Navbar() {
         />
       </div>
 
-      {/* Mobile Menu */}
       {mobileOpen && (
         <div className="navbar-menu-mobile">
           {NAV_ITEMS.map((item) => (
