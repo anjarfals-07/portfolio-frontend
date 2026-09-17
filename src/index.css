@@ -1451,3 +1451,369 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ============================================
+   CONTACT PAGE
+   ============================================ */
+
+.contact-wrapper {
+  overflow-x: hidden;
+}
+
+/* ===== Hero ===== */
+.contact-hero {
+  padding: 4rem 1.5rem 2rem;
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+  text-align: center;
+}
+
+.contact-hero-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.75rem;
+  line-height: 1.2;
+}
+
+.contact-subtitle {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ===== Grid Layout ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ===== Form ===== */
+.contact-form-wrapper {
+  position: sticky;
+  top: 6rem;
+}
+
+.contact-form-card {
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-form-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.contact-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.contact-field .p-inputtext,
+.contact-field .p-inputtextarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-field .p-inputtext:focus,
+.contact-field .p-inputtextarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.contact-error {
+  font-size: 0.8rem;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.contact-char-count {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-align: right;
+}
+
+.contact-submit-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.contact-privacy {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+/* ===== Success State ===== */
+.contact-success {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.contact-success-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  animation: pulseIn 0.5s ease-out;
+}
+
+.contact-success-icon .pi-check-circle {
+  font-size: 3rem;
+  color: #16a34a;
+}
+
+.contact-success-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.75rem;
+}
+
+.contact-success-desc {
+  color: #64748b;
+  line-height: 1.7;
+  margin: 0 0 1.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes pulseIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== Sidebar Info ===== */
+.contact-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-info-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.75rem;
+}
+
+.contact-info-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.5rem;
+}
+
+.contact-info-desc {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0 0 1.5rem;
+}
+
+.contact-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-info-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.contact-info-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.contact-info-item:hover .contact-info-icon {
+  background: #3b82f6;
+  color: white;
+  transform: scale(1.05);
+}
+
+.contact-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.contact-info-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contact-info-value {
+  font-size: 0.95rem;
+  color: #334155;
+  font-weight: 500;
+  word-break: break-word;
+  transition: color 0.2s;
+}
+
+a.contact-info-value:hover {
+  color: #3b82f6;
+}
+
+/* ===== Note ===== */
+.contact-info-note {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.contact-info-note strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #0f172a;
+  margin-bottom: 0.15rem;
+}
+
+.contact-info-note p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ===== FAQ ===== */
+.contact-faq-card {
+  background: linear-gradient(135deg, #f5f3ff, #eff6ff);
+  border: 1px solid #e0e7ff;
+  border-radius: 16px;
+  padding: 1.75rem;
+}
+
+.contact-faq-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 1.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.contact-faq-item {
+  margin-bottom: 1rem;
+}
+
+.contact-faq-item:last-child {
+  margin-bottom: 0;
+}
+
+.contact-faq-item strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #334155;
+  margin-bottom: 0.25rem;
+}
+
+.contact-faq-item p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ===== Responsive Contact ===== */
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .contact-form-wrapper {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-hero {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .contact-info-card,
+  .contact-faq-card {
+    padding: 1.25rem;
+  }
+
+  .contact-success {
+    padding: 1rem 0.5rem;
+  }
+
+  .contact-success-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .contact-success-icon .pi-check-circle {
+    font-size: 2.25rem;
+  }
+}
