@@ -11,6 +11,7 @@ import NotFound from '@/pages/NotFound'
 import Dashboard from '@/pages/admin/Dashboard'
 import ManageProjects from '@/pages/admin/ManageProjects'
 import ManageProfile from '@/pages/admin/ManageProfile'
+import ManageSkills from '@/pages/admin/ManageSkills'
 import ProtectedRoute from '@/components/ProtectedRoute'
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route path="/admin" element={<Dashboard />} />
             <Route path="/admin/projects" element={<ManageProjects />} />
             <Route path="/admin/profile" element={<ManageProfile />} />
+            <Route path="/admin/skills" element={<ManageSkills />} />
           </Route>
         </Route>
 
