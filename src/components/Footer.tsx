@@ -46,7 +46,17 @@ function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <span>© {year} Anjar. Made with ☕ & React.</span>
+        <div className="footer-bottom-content">
+          <span>© {year} Anjar. Made with ☕ & React.</span>
+          <Link
+            to="/admin/login"
+            className="footer-admin-link"
+            title="Admin Login"
+          >
+            <i className="pi pi-lock"></i>
+            <span>Admin</span>
+          </Link>
+        </div>
       </div>
     </footer>
   )

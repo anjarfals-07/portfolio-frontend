@@ -39,7 +39,7 @@ api.interceptors.response.use(
 
           // Redirect kalau lagi di halaman admin
           if (window.location.pathname.startsWith('/admin')) {
-            window.location.href = '/login'
+            window.location.href = '/admin/login'
           }
           break
         case 403:
