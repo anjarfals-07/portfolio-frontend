@@ -9,13 +9,14 @@ import Contact from '@/pages/Contact'
 import Login from '@/pages/Login'
 import NotFound from '@/pages/NotFound'
 import Dashboard from '@/pages/admin/Dashboard'
+import ManageProjects from '@/pages/admin/ManageProjects'
+import ManageProfile from '@/pages/admin/ManageProfile'
 import ProtectedRoute from '@/components/ProtectedRoute'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* ===== PUBLIC ===== */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
@@ -24,18 +25,16 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Route>
 
-        {/* ===== LOGIN ===== */}
         <Route path="/admin/login" element={<Login />} />
 
-        {/* ===== ADMIN (protected) ===== */}
         <Route element={<ProtectedRoute requiredRole="ADMIN" />}>
           <Route element={<AdminLayout />}>
             <Route path="/admin" element={<Dashboard />} />
-            {/* Route lain nanti di Task 19+ */}
+            <Route path="/admin/projects" element={<ManageProjects />} />
+            <Route path="/admin/profile" element={<ManageProfile />} />
           </Route>
         </Route>
 
-        {/* ===== 404 ===== */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

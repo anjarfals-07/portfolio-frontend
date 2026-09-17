@@ -2555,3 +2555,428 @@ a.contact-info-value:hover {
     font-size: 1.5rem;
   }
 }
+
+/* ============================================
+   ADMIN PAGES (Manage Projects, dll)
+   ============================================ */
+
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ===== Page Header ===== */
+.admin-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.admin-page-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.35rem;
+}
+
+.admin-page-subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.admin-page-add-btn {
+  flex-shrink: 0;
+}
+
+/* ===== Table Wrapper ===== */
+.admin-table-wrapper {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.admin-table .p-datatable-header {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem 1.25rem;
+}
+
+.admin-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.admin-search {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 240px;
+  flex: 1;
+  max-width: 320px;
+}
+
+.admin-search .pi-search {
+  position: absolute;
+  left: 0.75rem;
+  color: #94a3b8;
+  z-index: 1;
+}
+
+.admin-search input {
+  padding-left: 2.5rem !important;
+  width: 100%;
+}
+
+/* ===== Table Cell ===== */
+.admin-thumb-placeholder {
+  width: 60px;
+  height: 40px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+}
+
+.admin-thumb-img {
+  width: 60px !important;
+  height: 40px !important;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.admin-title-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.admin-title-cell strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.admin-slug {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-family: 'Courier New', monospace;
+}
+
+/* ============================================
+   ADMIN FORM (Dialog)
+   ============================================ */
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.admin-form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.admin-form-error {
+  font-size: 0.8rem;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.admin-form-hint {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.admin-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.admin-form-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.admin-form-toggle label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Dialog */
+.admin-form .p-inputtext,
+.admin-form .p-inputtextarea,
+.admin-form .p-chips {
+  width: 100%;
+}
+
+.admin-form .p-inputtext,
+.admin-form .p-inputtextarea {
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+}
+
+.admin-form .p-inputtext:focus,
+.admin-form .p-inputtextarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .admin-page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-page-add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admin-search {
+    max-width: 100%;
+  }
+
+  .admin-form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   ADMIN FORM PAGES (Manage Profile, dll)
+   ============================================ */
+
+.admin-form-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.admin-form-card {
+  border: 1px solid #e2e8f0;
+}
+
+.admin-form-card .p-card-body {
+  padding: 1.75rem;
+}
+
+.admin-form-section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.admin-form-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ===== Grid ===== */
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.admin-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.admin-form-field-full {
+  grid-column: 1 / -1;
+}
+
+/* ===== Input ===== */
+.admin-form-card .p-inputtext,
+.admin-form-card .p-inputtextarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.admin-form-card .p-inputtext:focus,
+.admin-form-card .p-inputtextarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* ===== Toggle Inline ===== */
+.admin-form-toggle-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  min-height: 44px;
+}
+
+.admin-form-toggle-inline label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ===== Avatar Preview ===== */
+.admin-avatar-preview {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
+}
+
+.admin-avatar-preview img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 8px 20px -6px rgba(59, 130, 246, 0.3);
+}
+
+/* ===== Socials ===== */
+.admin-social-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.admin-social-empty p {
+  margin: 1rem 0 0;
+}
+
+.admin-socials-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-social-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.admin-social-fields {
+  display: grid;
+  grid-template-columns: 140px 1fr 2fr;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.admin-social-input {
+  width: 100% !important;
+  padding: 0.6rem 0.85rem !important;
+  font-size: 0.9rem !important;
+}
+
+.admin-social-icon {
+  font-family: 'Courier New', monospace;
+}
+
+.admin-social-hint {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #1e40af;
+}
+
+.admin-social-hint code {
+  background: white;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ===== Bottom Actions ===== */
+.admin-form-actions-bottom {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(to top, #f8fafc 60%, transparent);
+  padding-top: 2rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-form-card .p-card-body {
+    padding: 1.25rem;
+  }
+
+  .admin-social-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-social-item {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .admin-social-item > .p-button {
+    align-self: flex-end;
+  }
+
+  .admin-form-actions-bottom {
+    flex-direction: column-reverse;
+  }
+
+  .admin-form-actions-bottom .p-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
