@@ -1,7 +1,7 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { PrimeReactProvider } from 'primereact/api'
 import App from './App'
+import { AuthProvider } from '@/context/AuthContext'
 
 // ===== PrimeReact CSS =====
 import 'primereact/resources/themes/lara-light-blue/theme.css'
@@ -13,9 +13,9 @@ import 'primeflex/primeflex.css'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <PrimeReactProvider>
+  <PrimeReactProvider>
+    <AuthProvider>
       <App />
-    </PrimeReactProvider>
-  </React.StrictMode>,
+    </AuthProvider>
+  </PrimeReactProvider>,
 )

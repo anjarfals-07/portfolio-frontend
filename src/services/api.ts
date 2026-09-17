@@ -9,38 +9,44 @@ const api = axios.create({
   },
 })
 
-// ===== Request Interceptor =====
-// Nanti di Task 15, kita tambah JWT token di sini
+// ===== REQUEST INTERCEPTOR =====
+// Auto-inject JWT token ke setiap request
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // const token = localStorage.getItem('token')
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`
-    // }
+    const token = localStorage.getItem('portfolio_token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
     return config
   },
   (error) => Promise.reject(error)
 )
 
-// ===== Response Interceptor =====
+// ===== RESPONSE INTERCEPTOR =====
 api.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    // Handle error global
     if (error.response) {
       const status = error.response.status
       const data = error.response.data as { message?: string }
 
       switch (status) {
         case 401:
-          console.error('Unauthorized — perlu login')
-          // Nanti: redirect ke /admin/login
+          console.warn('Unauthorized — token invalid atau expired')
+          // Hapus token & redirect ke login
+          localStorage.removeItem('portfolio_token')
+          localStorage.removeItem('portfolio_user')
+
+          // Redirect kalau lagi di halaman admin
+          if (window.location.pathname.startsWith('/admin')) {
+            window.location.href = '/login'
+          }
           break
         case 403:
-          console.error('Forbidden — nggak punya akses')
+          console.warn('Forbidden — nggak punya akses')
           break
         case 404:
-          console.error('Not found:', data?.message)
+          console.warn('Not found:', data?.message)
           break
         case 500:
           console.error('Server error:', data?.message)
