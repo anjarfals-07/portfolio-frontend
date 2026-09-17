@@ -165,7 +165,7 @@ a {
   color: #94a3b8;
 }
 
-/* ===== Responsive ===== */
+/* ===== Responsive Navbar/Footer ===== */
 @media (max-width: 768px) {
   .navbar-menu-desktop {
     display: none;
@@ -211,5 +211,568 @@ a {
 
   .footer-links {
     align-items: center;
+  }
+}
+
+/* ===== Home: Hero ===== */
+.home-wrapper {
+  overflow-x: hidden;
+}
+
+.hero-section {
+  padding: 4rem 1.5rem 3rem;
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-content {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  background: #dcfce7;
+  color: #166534;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 0.5rem;
+  color: #0f172a;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 600;
+  color: #475569;
+  margin: 0 0 1.5rem;
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 2rem;
+  max-width: 560px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.hero-avatar {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #dbeafe, #ede9fe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 50px -12px rgba(59, 130, 246, 0.3);
+  animation: fadeInUp 0.6s ease-out 0.1s backwards;
+}
+
+.hero-decoration {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.hero-decoration-1 {
+  width: 60px;
+  height: 60px;
+  background: #fde68a;
+  top: 10%;
+  right: 5%;
+  animation: float 4s ease-in-out infinite;
+}
+
+.hero-decoration-2 {
+  width: 40px;
+  height: 40px;
+  background: #a7f3d0;
+  bottom: 15%;
+  left: 5%;
+  animation: float 5s ease-in-out infinite 1s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* ===== Section Umum ===== */
+.section {
+  padding: 3rem 1.5rem;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.5rem;
+}
+
+.section-subtitle {
+  color: #64748b;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* ===== Skills Grid ===== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-weight: 500;
+  color: #334155;
+  transition: all 0.2s;
+}
+
+.skill-item:hover {
+  border-color: #3b82f6;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -8px rgba(59, 130, 246, 0.3);
+}
+
+/* ============================================
+   PROJECT CARD — SERAGAM TINGGINYA
+   ============================================ */
+
+/* Grid column jadi flex, biar card stretch full height */
+.grid > [class*="col-"] {
+  display: flex;
+}
+
+.grid > [class*="col-"] > .project-card,
+.grid > [class*="col-"] > .skeleton-card {
+  width: 100%;
+}
+
+/* Card utama: flex column, full height */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 460px;
+  overflow: hidden;
+  transition: all 0.3s;
+  border: 1px solid #e2e8f0;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Body card: flex column, isi space */
+.project-card .p-card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-card .p-card-content {
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Thumbnail: tinggi fixed */
+.project-card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+.project-card-image-placeholder {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  flex-shrink: 0;
+}
+
+/* Title: max 2 baris, tinggi fixed */
+.project-card-title {
+  font-size: 1.15rem;
+  color: #0f172a;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.9rem;
+  line-height: 1.45;
+}
+
+/* Description: max 3 baris, tinggi fixed */
+.project-card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 4.2rem;
+  line-height: 1.4;
+  font-size: 0.925rem;
+  color: #64748b;
+  margin: 0 0 1rem;
+}
+
+/* Tags: dorong ke bawah sebelum footer */
+.project-card .flex.flex-wrap.gap-1 {
+  min-height: 1.85rem;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+/* Footer: nempel bawah */
+.project-card .p-card-footer {
+  padding: 0.75rem 0 0;
+  margin-top: 0.75rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* Skeleton: seragam juga */
+.skeleton-card {
+  background: white;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 460px;
+  width: 100%;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+
+.cta-section {
+  padding: 3rem 1.5rem 4rem;
+}
+
+.cta-card {
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  color: white;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.cta-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.cta-desc {
+  font-size: 1.05rem;
+  opacity: 0.9;
+  margin: 0 0 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-card .p-button {
+  background: white;
+  border-color: white;
+  color: #1e40af;
+}
+
+.cta-card .p-button:hover {
+  background: #f1f5f9;
+  border-color: #f1f5f9;
+}
+
+.cta-card .p-button.p-button-outlined {
+  background: transparent;
+  border-color: white;
+  color: white;
+}
+
+.cta-card .p-button.p-button-outlined:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Responsive Home ===== */
+@media (max-width: 900px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    order: -1;
+    min-height: 220px;
+  }
+
+  .hero-avatar {
+    width: 180px;
+    height: 180px;
+  }
+
+  .section-header-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ============================================
+   PROJECTS PAGE
+   ============================================ */
+
+.projects-header {
+  margin-bottom: 2rem;
+}
+
+.projects-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.5rem;
+}
+
+.projects-subtitle {
+  color: #64748b;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* ===== Toolbar ===== */
+.projects-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.projects-search {
+  flex: 1 1 240px;
+  min-width: 200px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.projects-search .pi-search {
+  position: absolute;
+  left: 0.75rem;
+  color: #94a3b8;
+  z-index: 1;
+}
+
+.projects-search input {
+  padding-left: 2.5rem !important;
+  width: 100%;
+}
+
+.projects-filter {
+  min-width: 180px;
+}
+
+.projects-sort {
+  min-width: 150px;
+}
+
+.projects-view-toggle {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: #f1f5f9;
+  border-radius: 8px;
+}
+
+/* ===== Active Filters ===== */
+.projects-active-filters {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+/* ===== Result Count ===== */
+.projects-result-count {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.projects-result-count strong {
+  color: #0f172a;
+}
+
+/* ===== Empty State ===== */
+.projects-empty {
+  text-align: center;
+  padding: 4rem 1rem;
+  background: white;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+}
+
+.projects-empty h3 {
+  margin: 1rem 0 0.5rem;
+  color: #0f172a;
+}
+
+.projects-empty p {
+  margin: 0 0 1.5rem;
+}
+
+/* ===== List View ===== */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.projects-list .project-card {
+  min-height: auto;
+  display: grid !important;
+  grid-template-columns: 240px 1fr;
+  height: auto;
+}
+
+.projects-list .project-card .p-card-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.projects-list .project-card-image,
+.projects-list .project-card-image-placeholder {
+  height: 100%;
+  min-height: 180px;
+  border-radius: 12px 0 0 12px;
+}
+
+/* ===== Pagination ===== */
+.projects-paginator {
+  margin-top: 2rem;
+  background: transparent !important;
+  border: none !important;
+  padding: 1rem 0 !important;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== Responsive Projects ===== */
+@media (max-width: 768px) {
+  .projects-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .projects-search,
+  .projects-filter,
+  .projects-sort {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .projects-view-toggle {
+    align-self: flex-end;
+  }
+
+  .projects-list .project-card {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-list .project-card-image,
+  .projects-list .project-card-image-placeholder {
+    border-radius: 12px 12px 0 0;
+    height: 180px;
   }
 }
