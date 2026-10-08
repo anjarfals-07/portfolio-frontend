@@ -1,7 +1,5 @@
 import { useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Button } from 'primereact/button'
-import { InputText } from 'primereact/inputtext'
 import { Password } from 'primereact/password'
 import { Dialog } from 'primereact/dialog'
 import { Toast } from 'primereact/toast'

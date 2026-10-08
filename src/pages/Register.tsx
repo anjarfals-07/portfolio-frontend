@@ -48,7 +48,7 @@ function Register() {
   const [selectedMethodId, setSelectedMethodId] = useState<number | null>(
     null
   )
-  const [requiresPayment, setRequiresPayment] = useState(false)
+  // const [requiresPayment, setRequiresPayment] = useState(false)
 
   // Load payment methods saat mount
   useEffect(() => {

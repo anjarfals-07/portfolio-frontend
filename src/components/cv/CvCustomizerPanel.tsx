@@ -33,6 +33,11 @@ import CvPersonalInfoForm, {
 import { useCvPreferences } from '@/hooks/useCvPreferences'
 import { useCvRenderData } from '@/hooks/useCvRenderData'
 import { profileService } from '@/services/profileService'
+
+// ⭐ FIX: static import (bukan dynamic) — konsisten dengan CvPreviewIframe
+import { renderCvHtml } from '@/services/cvHtmlRenderer'
+import { generateAndDownloadPdf } from '@/services/cvPdfService'
+
 import { getPalette, getTemplate, getPreferenceSummary } from '@/types/cv'
 import type { CvGenerateResult, CvPreferences } from '@/types/cv'
 import type { Profile } from '@/types/profile'
@@ -261,8 +266,9 @@ export default function CvCustomizerPanel({
       try {
         if (isDirty) await save()
 
-        const { renderCvHtml } = await import('@/services/cvHtmlRenderer')
-        const { generateAndDownloadPdf } = await import('@/services/cvPdfService')
+        // ✅ FIX: HAPUS dynamic import — sudah static import di atas
+        // const { renderCvHtml } = await import('@/services/cvHtmlRenderer')      ❌
+        // const { generateAndDownloadPdf } = await import('@/services/cvPdfService') ❌
 
         const finalTemplate = (templateOverride ||
           preferences.template) as typeof preferences.template

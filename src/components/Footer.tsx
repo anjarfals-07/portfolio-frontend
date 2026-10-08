@@ -1,6 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Button } from 'primereact/button'
 import { profileService } from '@/services/profileService'
 import type { Profile } from '@/types/profile'
 

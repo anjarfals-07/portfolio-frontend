@@ -57,7 +57,6 @@ function Login() {
         response?: { data?: { message?: string; error?: string }; status?: number }
       }
 
-      const status = axiosErr.response?.status
       const errorCode = axiosErr.response?.data?.error
       const msg = axiosErr.response?.data?.message || axiosErr.response?.data?.error
 

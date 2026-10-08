@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
-import { Button } from 'primereact/button'
 import type { PaymentMethodFormData } from '@/types/payment'
 
 /* ============================================================

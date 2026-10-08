@@ -111,7 +111,7 @@ export function useCvPreferences(
   const [preferences, setPreferencesState] = useState<CvPreferences>(initialMerged)
   const [initialPreferences, setInitialPreferences] = useState<CvPreferences>(initialMerged)
   const [isSaving, setIsSaving] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   // Sync kalau `initial` berubah dari luar

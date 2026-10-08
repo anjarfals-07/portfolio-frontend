@@ -5,11 +5,10 @@
   import { Button } from 'primereact/button'
   import { Toast } from 'primereact/toast'
   import { Skeleton } from 'primereact/skeleton'
-  import { Message } from 'primereact/message'
   import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
   import { profileService } from '@/services/profileService'
+  import { uploadService } from '@/services/uploadService'
   import type { Profile, SocialLink } from '@/types/profile'
-  import type { CvPreferences } from '@/types/cv'
   import ImageUpload from '@/components/ImageUpload'
 
   // ⭐ CV Components (BARU)
@@ -710,18 +709,30 @@
                   cvSource={profile?.cvSource}
                   cvGeneratedAt={profile?.cvGeneratedAt}
                   onGenerate={() => setShowCustomizer(true)}
+                  // onUpload={async (file) => {
+                  //   const { uploadService } = await import(
+                  //     '@/services/uploadService'
+                  //   )
+                  //   await uploadService.uploadCv(file)
+                  //   await fetchProfile()
+                  // }}
                   onUpload={async (file) => {
-                    const { uploadService } = await import(
-                      '@/services/uploadService'
-                    )
                     await uploadService.uploadCv(file)
                     await fetchProfile()
                   }}
+                  // onDelete={async () => {
+                  //   if (!profile?.cvUrl) return
+                  //   const { uploadService } = await import(
+                  //     '@/services/uploadService'
+                  //   )
+                  //   const publicId = uploadService.extractPublicId(profile.cvUrl)
+                  //   if (publicId) {
+                  //     await uploadService.deleteCv(publicId)
+                  //     await fetchProfile()
+                  //   }
+                  // }}
                   onDelete={async () => {
                     if (!profile?.cvUrl) return
-                    const { uploadService } = await import(
-                      '@/services/uploadService'
-                    )
                     const publicId = uploadService.extractPublicId(profile.cvUrl)
                     if (publicId) {
                       await uploadService.deleteCv(publicId)
