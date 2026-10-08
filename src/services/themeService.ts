@@ -7,17 +7,29 @@ function normalizeTheme(raw: any): Theme | null {
 
   return {
     id: raw.id,
+
+    // ⭐ OWNER INFO — white-label
+    username: raw.username ?? null,
+    displayName: raw.displayName ?? raw.display_name ?? null,
+
+    // Colors
     primaryColor: raw.primaryColor ?? raw.primary_color ?? null,
     accentColor: raw.accentColor ?? raw.accent_color ?? null,
     bgColor: raw.bgColor ?? raw.bg_color ?? null,
     textColor: raw.textColor ?? raw.text_color ?? null,
+
+    // Typography
     fontFamily: raw.fontFamily ?? raw.font_family ?? null,
     headingFont: raw.headingFont ?? raw.heading_font ?? null,
+
+    // Layout
     borderRadius: raw.borderRadius ?? raw.border_radius ?? null,
     logoIcon: raw.logoIcon ?? raw.logo_icon ?? null,
     layout: raw.layout ?? null,
     defaultMode: raw.defaultMode ?? raw.default_mode ?? null,
     preset: raw.preset ?? null,
+
+    // Timestamps
     updatedAt: raw.updatedAt ?? raw.updated_at ?? new Date().toISOString(),
   }
 }

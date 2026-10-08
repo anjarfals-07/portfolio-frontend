@@ -1,31 +1,121 @@
-# Dependencies
+# ============================================================
+# DEPENDENCIES
+# ============================================================
 node_modules/
 .pnp
 .pnp.js
+.yarn/
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-# Build output
+# ============================================================
+# BUILD OUTPUT
+# ============================================================
 dist/
 dist-ssr/
 build/
+out/
+.next/
+.nuxt/
+.cache/
+.vite/
+.parcel-cache/
 
-# Env
+# ============================================================
+# ENV FILES — JANGAN COMMIT!
+# ============================================================
 .env
 .env.local
 .env.*.local
+.env.development
+.env.production
+.env.staging
+*.env
 
-# IDE
+# Tapi .env.example BOLEH di-commit
+!.env.example
+
+# ============================================================
+# IDE & EDITOR
+# ============================================================
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea/
 *.iml
-.DS_Store
+*.swp
+*.swo
+*~
 
-# Logs
+# ============================================================
+# OS
+# ============================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ============================================================
+# LOGS
+# ============================================================
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
 
-# Vite
-.vite/
+# ============================================================
+# TESTING & COVERAGE
+# ============================================================
+coverage/
+.nyc_output/
+*.lcov
+.cypress/videos/
+.cypress/screenshots/
+
+# ============================================================
+# VERCEL
+# ============================================================
+.vercel/
+.vercelignore
+# ⚠️ vercel.json JANGAN di-ignore — harus di-commit!
+
+# ============================================================
+# BACKEND (kalau monorepo — uncomment kalau perlu)
+# ============================================================
+# backend/target/
+# backend/.mvn/
+# backend/mvnw
+# backend/mvnw.cmd
+# *.class
+# *.jar
+# *.war
+# !gradle/wrapper/gradle-wrapper.jar
+# .gradle/
+
+# ============================================================
+# TEMPORARY
+# ============================================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.old
+*.orig
+
+# ============================================================
+# MISC
+# ============================================================
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+.prettier-cache
