@@ -1,0 +1,25 @@
+/* ============================================
+   28. ANIMATIONS ON SCROLL
+   ============================================ */
+
+.animated-section {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.animated-section.animate-fade-up { transform: translateY(40px); }
+.animated-section.animate-fade-in { transform: none; }
+.animated-section.animate-fade-left { transform: translateX(40px); }
+.animated-section.animate-fade-right { transform: translateX(-40px); }
+.animated-section.animate-zoom-in { transform: scale(0.92); }
+.animated-section.is-visible { opacity: 1; transform: translate(0, 0) scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-section {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

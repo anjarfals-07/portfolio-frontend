@@ -1,0 +1,152 @@
+/* ============================================
+   RESET & BASE
+   ============================================ */
+
+/* *,
+*::before,
+*::after {
+  box-sizing: border-box;
+} */
+
+/* html {
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-body, 'Inter', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+} */
+
+
+
+
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ============================================
+   ⭐ PENTING: html & body TIDAK BOLEH punya
+   overflow-x: clip atau overflow: hidden
+   karena akan bikin dialog position:fixed
+   ke-clip / tidak muncul.
+   ============================================ */
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-text-size-adjust: 100%;
+
+  /* ✅ Untuk cegah horizontal scroll TANPA bikin containing block */
+  max-width: 100vw;
+  /* ❌ JANGAN pakai overflow: hidden / overflow-x: clip */
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-body, 'Inter', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* ✅ Biarkan body scroll normal */
+  overflow-x: visible;
+  overflow-y: visible;
+
+  /* ❌ JANGAN pakai overflow: hidden / overflow-x: clip */
+}
+
+/* ⭐ #root bikin stacking context proper untuk dialog fixed */
+#root {
+  isolation: isolate;
+  position: relative;
+  overflow-x: visible;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ============================================
+   ⭐ SAFETY NET: Force dialog visible
+   Kalau ada script yang set body overflow hidden
+   (dari PrimeReact blockScroll), ini akan reset.
+   ============================================ */
+
+body[style*="overflow"] {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
+
+body[style*="overflow: hidden"] {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
+
+/* ⭐ FIX: class malformed dari blockScroll bug */
+body[class*="style="] {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}

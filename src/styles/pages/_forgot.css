@@ -1,0 +1,99 @@
+/* ============================================
+   FORGOT PASSWORD & RESET PASSWORD
+   ============================================ */
+
+.forgot-icon,
+.forgot-success-icon,
+.forgot-icon-error {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.75rem;
+  color: white;
+}
+
+.forgot-icon {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  box-shadow: 0 10px 25px -8px rgba(59, 130, 246, 0.5);
+}
+
+.forgot-success-icon {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 10px 25px -8px rgba(16, 185, 129, 0.5);
+}
+
+.forgot-icon-error {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 10px 25px -8px rgba(239, 68, 68, 0.5);
+}
+
+.forgot-success {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.forgot-success-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #78350f;
+}
+
+html.dark-mode .forgot-success-info {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fcd34d;
+}
+
+.forgot-success-info > i {
+  color: #f59e0b;
+  font-size: 1.1rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.forgot-success-info strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.forgot-success-info p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.forgot-resend-btn {
+  background: none;
+  border: none;
+  color: #78350f;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+html.dark-mode .forgot-resend-btn {
+  color: #fcd34d;
+}
+
+.forgot-resend-btn:hover {
+  opacity: 0.8;
+}
+
+.forgot-success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

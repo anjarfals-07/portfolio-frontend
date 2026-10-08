@@ -1,16 +1,19 @@
+// src/components/ProtectedRoute.tsx
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 import { ProgressSpinner } from 'primereact/progressspinner'
 
 interface ProtectedRouteProps {
-  requiredRole?: string
+  requiredRole?: 'OWNER' | 'SUPER_ADMIN'
 }
 
 function ProtectedRoute({ requiredRole }: ProtectedRouteProps) {
   const { isAuthenticated, user, loading } = useAuth()
   const location = useLocation()
 
-  // Loading state
+  // ============================================================
+  // LOADING
+  // ============================================================
   if (loading) {
     return (
       <div
@@ -22,25 +25,45 @@ function ProtectedRoute({ requiredRole }: ProtectedRouteProps) {
     )
   }
 
-  // Belum login → redirect ke /admin/login
-  if (!isAuthenticated) {
-    return <Navigate to="/admin/login" state={{ from: location }} replace />
+  // ============================================================
+  // BELUM LOGIN
+  // ============================================================
+  if (!isAuthenticated || !user) {
+    return (
+      <Navigate
+        to="/login"
+        state={{ from: location.pathname }}
+        replace
+      />
+    )
   }
 
-  // Cek role kalau diperlukan
-  if (requiredRole && user?.role !== requiredRole) {
-    return (
-      <div
-        className="page-container"
-        style={{ textAlign: 'center', paddingTop: '4rem' }}
-      >
-        <i className="pi pi-lock text-6xl text-red-500"></i>
-        <h2 className="mt-3">Akses Ditolak</h2>
-        <p className="text-color-secondary">
-          Kamu nggak punya akses ke halaman ini.
-        </p>
-      </div>
-    )
+  // ============================================================
+  // SUPER_ADMIN ONLY
+  // ⭐ OWNER yang akses /admin → redirect ke /owner
+  // ============================================================
+  if (requiredRole === 'SUPER_ADMIN' && user.role !== 'SUPER_ADMIN') {
+    if (user.role === 'OWNER') {
+      // ⭐ Owner coba akses /admin → redirect ke /owner
+      return <Navigate to="/owner" replace />
+    }
+    // User biasa → redirect ke portfolio-nya
+    const slug = user.portfolioSlug || user.username
+    return <Navigate to={`/${slug}`} replace />
+  }
+
+  // ============================================================
+  // OWNER (SUPER_ADMIN juga boleh)
+  // ⭐ Hanya user biasa yang di-redirect
+  // ============================================================
+  if (
+    requiredRole === 'OWNER' &&
+    user.role !== 'OWNER' &&
+    user.role !== 'SUPER_ADMIN'
+  ) {
+    // User biasa coba akses /owner → redirect ke portfolio-nya
+    const slug = user.portfolioSlug || user.username
+    return <Navigate to={`/${slug}`} replace />
   }
 
   return <Outlet />

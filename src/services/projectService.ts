@@ -2,47 +2,74 @@ import api from './api'
 import type { Project, ProjectFormData } from '@/types/project'
 
 export const projectService = {
-  // ===== GET ALL =====
-  // by default cuma published, kalau `all: true` tampilkan semua
-  getAll: async (all = false): Promise<Project[]> => {
-    const { data } = await api.get<Project[]>('/projects', {
-      params: all ? { all: true } : {},
-    })
+  // ============================================================
+  // PUBLIC (by username)
+  // ============================================================
+
+  getPublicProjects: async (username: string): Promise<Project[]> => {
+    const { data } = await api.get<Project[]>(`/users/${username}/projects`)
     return data
   },
 
-  // ===== GET FEATURED =====
-  getFeatured: async (): Promise<Project[]> => {
-    const { data } = await api.get<Project[]>('/projects/featured')
+  getPublicFeatured: async (username: string): Promise<Project[]> => {
+    const all = await projectService.getPublicProjects(username)
+    return all.filter((p) => p.featured)
+  },
+
+  getPublicBySlug: async (username: string, slug: string): Promise<Project> => {
+    const { data } = await api.get<Project>(
+      `/users/${username}/projects/${slug}`
+    )
     return data
   },
 
-  // ===== GET BY ID =====
+  // ============================================================
+  // OWNER (/api/me/...)
+  // ============================================================
+
+  getAll: async (): Promise<Project[]> => {
+    const { data } = await api.get<Project[]>('/me/projects')
+    return data
+  },
+
   getById: async (id: number): Promise<Project> => {
-    const { data } = await api.get<Project>(`/projects/${id}`)
+    const { data } = await api.get<Project>(`/me/projects/${id}`)
     return data
   },
 
-  // ===== GET BY SLUG =====
-  getBySlug: async (slug: string): Promise<Project> => {
-    const { data } = await api.get<Project>(`/projects/slug/${slug}`)
-    return data
-  },
-
-  // ===== CREATE =====
   create: async (payload: ProjectFormData): Promise<Project> => {
-    const { data } = await api.post<Project>('/projects', payload)
+    const { data } = await api.post<Project>('/me/projects', payload)
     return data
   },
 
-  // ===== UPDATE =====
-  update: async (id: number, payload: Partial<ProjectFormData>): Promise<Project> => {
-    const { data } = await api.put<Project>(`/projects/${id}`, payload)
+  update: async (
+    id: number,
+    payload: Partial<ProjectFormData>
+  ): Promise<Project> => {
+    const { data } = await api.put<Project>(`/me/projects/${id}`, payload)
     return data
   },
 
-  // ===== DELETE =====
   delete: async (id: number): Promise<void> => {
-    await api.delete(`/projects/${id}`)
+    await api.delete(`/me/projects/${id}`)
+  },
+
+  // ============================================================
+  // ADMIN (/api/admin/...)
+  // ============================================================
+
+  getByUserIdForAdmin: async (userId: number): Promise<Project[]> => {
+    const { data } = await api.get<Project[]>(
+      `/admin/users/${userId}/projects`
+    )
+    return data
+  },
+
+  // Alias (backward compat)
+  getAllProjects: async (userId: number): Promise<Project[]> => {
+    const { data } = await api.get<Project[]>(
+      `/admin/users/${userId}/projects`
+    )
+    return data
   },
 }

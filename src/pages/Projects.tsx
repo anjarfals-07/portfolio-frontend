@@ -1,12 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { Button } from 'primereact/button'
 import { Message } from 'primereact/message'
 import { Skeleton } from 'primereact/skeleton'
 import { Paginator } from 'primereact/paginator'
-import { Chip } from 'primereact/chip'
 import ProjectCard from '@/components/ProjectCard'
+import LoadingSkeleton from '@/components/LoadingSkeleton'
+import EmptyState from '@/components/EmptyState'
+import AnimatedSection from '@/components/AnimatedSection'
+import SEO from '@/components/SEO'
 import { projectService } from '@/services/projectService'
 import type { Project } from '@/types/project'
 
@@ -21,6 +25,8 @@ const SORT_OPTIONS: { label: string; value: SortOption }[] = [
 ]
 
 function Projects() {
+  const { username } = useParams<{ username: string }>()
+
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -33,22 +39,30 @@ function Projects() {
   const [first, setFirst] = useState(0)
   const [rows] = useState(6)
 
+  // ===== Helper: user path =====
+  const userPath = (path: string = '') => {
+    const clean = path.startsWith('/') ? path : `/${path}`
+    return `/${username}${clean}`
+  }
+
   useEffect(() => {
+    if (!username) return
+
     const fetchProjects = async () => {
       try {
         setLoading(true)
-        const data = await projectService.getAll()
+        const data = await projectService.getPublicProjects(username)
         setProjects(data)
         setError(null)
       } catch (err) {
         console.error(err)
-        setError('Gagal memuat works. Pastikan backend jalan.')
+        setError('Gagal memuat works.')
       } finally {
         setLoading(false)
       }
     }
     fetchProjects()
-  }, [])
+  }, [username])
 
   const techOptions = useMemo(() => {
     const set = new Set<string>()
@@ -57,6 +71,24 @@ function Projects() {
       .sort()
       .map((t) => ({ label: t, value: t }))
   }, [projects])
+
+  const topTechs = useMemo(() => {
+    const counts: Record<string, number> = {}
+    projects.forEach((p) =>
+      p.techStack?.forEach((t) => {
+        counts[t] = (counts[t] || 0) + 1
+      })
+    )
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6)
+      .map(([tech, count]) => ({ tech, count }))
+  }, [projects])
+
+  const featuredCount = useMemo(
+    () => projects.filter((p) => p.featured).length,
+    [projects]
+  )
 
   const filtered = useMemo(() => {
     let result = [...projects]
@@ -103,6 +135,7 @@ function Projects() {
 
   const onPageChange = (e: { first: number }) => {
     setFirst(e.first)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const clearFilters = () => {
@@ -112,27 +145,28 @@ function Projects() {
     setFirst(0)
   }
 
+  const toggleTech = (tech: string) => {
+    setSelectedTech((prev) => (prev === tech ? null : tech))
+    setFirst(0)
+  }
+
   const hasFilter = !!search.trim() || !!selectedTech || sortBy !== 'newest'
 
   if (loading) {
     return (
       <div className="page-container">
+        <SEO
+          title={`Works ${username}`}
+          description="Kumpulan karya dan project yang pernah saya kerjakan."
+          url={userPath('/projects')}
+          keywords={['works', 'projects', 'portfolio']}
+        />
         <div className="projects-header">
           <Skeleton width="12rem" height="2.5rem" />
           <Skeleton width="20rem" height="1rem" className="mt-2" />
         </div>
-        <div className="grid mt-4">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="col-12 md:col-6 lg:col-4">
-              <div className="skeleton-card">
-                <Skeleton height="180px" />
-                <Skeleton height="2rem" className="mt-3" />
-                <Skeleton height="1rem" className="mt-2" />
-                <Skeleton height="1rem" width="80%" className="mt-2" />
-                <Skeleton height="1rem" width="60%" className="mt-2" />
-              </div>
-            </div>
-          ))}
+        <div className="mt-4">
+          <LoadingSkeleton variant="card-grid" count={6} />
         </div>
       </div>
     )
@@ -147,173 +181,239 @@ function Projects() {
   }
 
   return (
-    <div className="page-container">
-      {/* ===== HEADER ===== */}
-      <div className="projects-header">
-        <h1 className="projects-title">My Works</h1>
-        <p className="projects-subtitle">
-          Kumpulan karya yang pernah saya kerjakan —{' '}
-          <strong>{projects.length}</strong> works total
-        </p>
-      </div>
+    <div className="projects-page">
+      <SEO
+        title={`Works ${username}`}
+        description="Kumpulan karya dan project yang pernah saya kerjakan."
+        url={userPath('/projects')}
+        keywords={['works', 'projects', 'portfolio', 'karya']}
+      />
 
-      {/* ===== TOOLBAR ===== */}
-      {projects.length > 0 && (
-        <div className="projects-toolbar">
-          <span className="projects-search">
-            <i className="pi pi-search"></i>
-            <InputText
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value)
-                setFirst(0)
-              }}
-              placeholder="Cari works..."
-              className="w-full"
-            />
-          </span>
+      <section className="projects-hero">
+        <div className="projects-hero-bg">
+          <div className="projects-hero-orb projects-hero-orb-1" />
+          <div className="projects-hero-orb projects-hero-orb-2" />
+          <div className="projects-hero-grid" />
+        </div>
 
-          <Dropdown
-            value={selectedTech}
-            options={techOptions}
-            onChange={(e) => {
-              setSelectedTech(e.value)
-              setFirst(0)
-            }}
-            placeholder="Semua Tools"
-            showClear
-            className="projects-filter"
-          />
+        <AnimatedSection variant="fade-up">
+          <div className="page-container projects-hero-inner">
+            <span className="projects-hero-eyebrow">
+              <i className="pi pi-briefcase"></i>
+              Portfolio
+            </span>
 
-          <Dropdown
-            value={sortBy}
-            options={SORT_OPTIONS}
-            onChange={(e) => setSortBy(e.value)}
-            className="projects-sort"
-          />
+            <h1 className="projects-hero-title">
+              My <span className="projects-hero-title-gradient">Works</span>
+            </h1>
 
-          <div className="projects-view-toggle">
-            <Button
-              icon="pi pi-th-large"
-              rounded
-              text
-              severity={viewMode === 'grid' ? undefined : 'secondary'}
-              onClick={() => setViewMode('grid')}
-              aria-label="Grid view"
-            />
-            <Button
-              icon="pi pi-list"
-              rounded
-              text
-              severity={viewMode === 'list' ? undefined : 'secondary'}
-              onClick={() => setViewMode('list')}
-              aria-label="List view"
-            />
+            <p className="projects-hero-desc">
+              Kumpulan karya yang pernah saya kerjakan — dari web apps, tools,
+              hingga eksperimen kreatif.
+            </p>
+
+            {projects.length > 0 && (
+              <div className="projects-hero-stats">
+                <div className="projects-hero-stat">
+                  <span className="projects-hero-stat-value">
+                    {projects.length}
+                  </span>
+                  <span className="projects-hero-stat-label">Total Works</span>
+                </div>
+                <div className="projects-hero-stat-divider" />
+                <div className="projects-hero-stat">
+                  <span className="projects-hero-stat-value">
+                    {techOptions.length}
+                  </span>
+                  <span className="projects-hero-stat-label">Tools Used</span>
+                </div>
+                {featuredCount > 0 && (
+                  <>
+                    <div className="projects-hero-stat-divider" />
+                    <div className="projects-hero-stat">
+                      <span className="projects-hero-stat-value">
+                        {featuredCount}
+                      </span>
+                      <span className="projects-hero-stat-label">Featured</span>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
           </div>
-        </div>
-      )}
+        </AnimatedSection>
+      </section>
 
-      {/* ===== ACTIVE FILTERS ===== */}
-      {hasFilter && (
-        <div className="projects-active-filters">
-          <span className="text-sm text-color-secondary">Filter aktif:</span>
-          {search && (
-            <Chip
-              label={`"${search}"`}
-              icon="pi pi-search"
-              removable
-              onRemove={() => {
-                setSearch('')
-                return true
-              }}
+      <div className="page-container projects-content">
+        {projects.length > 0 && (
+          <div className="projects-toolbar">
+            <span className="projects-search">
+              <i className="pi pi-search"></i>
+              <InputText
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value)
+                  setFirst(0)
+                }}
+                placeholder="Cari works..."
+                className="w-full"
+              />
+              {search && (
+                <button
+                  type="button"
+                  className="projects-search-clear"
+                  onClick={() => setSearch('')}
+                  aria-label="Clear search"
+                >
+                  <i className="pi pi-times"></i>
+                </button>
+              )}
+            </span>
+
+            <Dropdown
+              value={sortBy}
+              options={SORT_OPTIONS}
+              onChange={(e) => setSortBy(e.value)}
+              className="projects-sort"
             />
-          )}
-          {selectedTech && (
-            <Chip
-              label={selectedTech}
-              icon="pi pi-tag"
-              removable
-              onRemove={() => {
-                setSelectedTech(null)
-                return true
-              }}
-            />
-          )}
-          <Button
-            label="Reset"
-            icon="pi pi-times"
-            text
-            size="small"
-            severity="danger"
-            onClick={clearFilters}
-          />
-        </div>
-      )}
 
-      {/* ===== RESULT COUNT ===== */}
-      {projects.length > 0 && (
-        <div className="projects-result-count">
-          Menampilkan <strong>{paginated.length}</strong> dari{' '}
-          <strong>{filtered.length}</strong> works
-        </div>
-      )}
-
-      {/* ===== EMPTY STATE ===== */}
-      {projects.length === 0 && (
-        <Message
-          severity="info"
-          text="Belum ada works. Tambah via admin panel."
-          className="w-full"
-        />
-      )}
-
-      {/* ===== NO RESULT ===== */}
-      {projects.length > 0 && filtered.length === 0 && (
-        <div className="projects-empty">
-          <i className="pi pi-search text-5xl text-color-secondary"></i>
-          <h3>Tidak ada works yang cocok</h3>
-          <p className="text-color-secondary">
-            Coba ubah kata kunci atau reset filter.
-          </p>
-          <Button
-            label="Reset Filter"
-            icon="pi pi-refresh"
-            onClick={clearFilters}
-          />
-        </div>
-      )}
-
-      {/* ===== GRID VIEW ===== */}
-      {viewMode === 'grid' && paginated.length > 0 && (
-        <div className="grid">
-          {paginated.map((p) => (
-            <div key={p.id} className="col-12 md:col-6 lg:col-4">
-              <ProjectCard project={p} />
+            <div className="projects-view-toggle">
+              <button
+                type="button"
+                className={`projects-view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                onClick={() => setViewMode('grid')}
+                aria-label="Grid view"
+              >
+                <i className="pi pi-th-large"></i>
+              </button>
+              <button
+                type="button"
+                className={`projects-view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                onClick={() => setViewMode('list')}
+                aria-label="List view"
+              >
+                <i className="pi pi-list"></i>
+              </button>
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        )}
 
-      {/* ===== LIST VIEW ===== */}
-      {viewMode === 'list' && paginated.length > 0 && (
-        <div className="projects-list">
-          {paginated.map((p) => (
-            <ProjectCard key={p.id} project={p} />
-          ))}
-        </div>
-      )}
+        {projects.length > 0 && topTechs.length > 0 && (
+          <div className="projects-quick-filters">
+            <span className="projects-quick-label">
+              <i className="pi pi-bolt"></i>
+              Quick filter:
+            </span>
+            <div className="projects-quick-chips">
+              <button
+                type="button"
+                className={`projects-quick-chip ${!selectedTech ? 'active' : ''}`}
+                onClick={() => {
+                  setSelectedTech(null)
+                  setFirst(0)
+                }}
+              >
+                <i className="pi pi-th-large"></i>
+                All
+                <span className="projects-quick-chip-count">
+                  {projects.length}
+                </span>
+              </button>
+              {topTechs.map(({ tech, count }) => (
+                <button
+                  key={tech}
+                  type="button"
+                  className={`projects-quick-chip ${selectedTech === tech ? 'active' : ''}`}
+                  onClick={() => toggleTech(tech)}
+                >
+                  {tech}
+                  <span className="projects-quick-chip-count">{count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
-      {/* ===== PAGINATION ===== */}
-      {filtered.length > rows && (
-        <Paginator
-          first={first}
-          rows={rows}
-          totalRecords={filtered.length}
-          onPageChange={onPageChange}
-          template="PrevPageLink PageLinks NextPageLink"
-          className="projects-paginator"
-        />
-      )}
+        {projects.length > 0 && (
+          <div className="projects-meta-row">
+            <div className="projects-result-count">
+              <span className="projects-result-badge">
+                <i className="pi pi-briefcase"></i>
+                <strong>{filtered.length}</strong>
+                {filtered.length === 1 ? ' work' : ' works'}
+                {hasFilter && (
+                  <button
+                    type="button"
+                    className="projects-clear-all"
+                    onClick={clearFilters}
+                  >
+                    Clear
+                  </button>
+                )}
+              </span>
+            </div>
+          </div>
+        )}
+
+        {projects.length === 0 && (
+          <EmptyState
+            icon="pi pi-briefcase"
+            title="Belum Ada Works"
+            description="Saya belum menambahkan karya apapun. Cek kembali nanti!"
+          />
+        )}
+
+        {projects.length > 0 && filtered.length === 0 && (
+          <EmptyState
+            icon="pi pi-search"
+            title="Tidak Ada Works yang Cocok"
+            description="Coba ubah kata kunci atau reset filter untuk melihat semua works."
+            actionLabel="Reset Filter"
+            actionIcon="pi pi-refresh"
+            onAction={clearFilters}
+          />
+        )}
+
+        {viewMode === 'grid' && paginated.length > 0 && (
+          <div className="grid projects-grid">
+            {paginated.map((p, i) => (
+              <AnimatedSection
+                key={p.id}
+                variant="fade-up"
+                delay={i * 80}
+                className="col-12 md:col-6 lg:col-4"
+              >
+                <ProjectCard project={p} username={username!} />
+              </AnimatedSection>
+            ))}
+          </div>
+        )}
+
+        {viewMode === 'list' && paginated.length > 0 && (
+          <div className="projects-list">
+            {paginated.map((p, i) => (
+              <AnimatedSection
+                key={p.id}
+                variant="fade-left"
+                delay={i * 60}
+              >
+                <ProjectCard project={p} username={username!} />
+              </AnimatedSection>
+            ))}
+          </div>
+        )}
+
+        {filtered.length > rows && (
+          <Paginator
+            first={first}
+            rows={rows}
+            totalRecords={filtered.length}
+            onPageChange={onPageChange}
+            template="PrevPageLink PageLinks NextPageLink"
+            className="projects-paginator"
+          />
+        )}
+      </div>
     </div>
   )
 }

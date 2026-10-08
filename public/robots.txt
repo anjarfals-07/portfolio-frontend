@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 
+# Block admin routes
 Disallow: /admin
+Disallow: /admin/
 
+# Sitemap
 Sitemap: https://portfolio-kamu.vercel.app/sitemap.xml

@@ -1,0 +1,436 @@
+/* ============================================
+   MARKDOWN BODY — Modern Typography
+   ============================================ */
+
+.markdown-body {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  max-width: 100%;
+  word-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   HEADINGS — dengan accent underline
+   ============================================ */
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  scroll-margin-top: 5rem;
+}
+
+.markdown-body h1 {
+  font-size: 2rem;
+  margin: 2.75rem 0 1.25rem;
+  padding-bottom: 0.65rem;
+  position: relative;
+}
+
+.markdown-body h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 4rem;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--accent),
+    var(--accent-secondary, var(--accent))
+  );
+  border-radius: 2px;
+}
+
+.markdown-body h2 {
+  font-size: 1.6rem;
+  margin: 2.25rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--bg-tertiary);
+  position: relative;
+}
+
+.markdown-body h2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 3rem;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+.markdown-body h3 {
+  font-size: 1.3rem;
+  margin: 1.85rem 0 0.75rem;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.markdown-body h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+  bottom: 0.35em;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.markdown-body h4 {
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* ============================================
+   PARAGRAPH
+   ============================================ */
+
+.markdown-body p {
+  margin: 0 0 1.35rem;
+}
+
+/* ============================================
+   LINK
+   ============================================ */
+
+.markdown-body a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: color 0.2s;
+  padding-bottom: 1px;
+}
+
+.markdown-body a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.markdown-body a:hover {
+  color: var(--accent-hover, var(--accent));
+}
+
+.markdown-body a:hover::after {
+  transform: scaleX(1.05);
+}
+
+.markdown-body strong {
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.markdown-body em {
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+/* ============================================
+   LISTS
+   ============================================ */
+
+.markdown-body ul,
+.markdown-body ol {
+  margin: 0 0 1.35rem;
+  padding-left: 1.75rem;
+}
+
+.markdown-body li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.markdown-body li::marker {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.markdown-body ul li::marker {
+  font-size: 1.1em;
+}
+
+/* ============================================
+   BLOCKQUOTE — dengan gradient
+   ============================================ */
+
+.markdown-body blockquote {
+  margin: 2rem 0;
+  padding: 1.15rem 1.5rem 1.15rem 1.75rem;
+  border-left: 4px solid var(--accent);
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--accent) 8%, transparent),
+    transparent 60%
+  );
+  border-radius: 0 14px 14px 0;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  position: relative;
+  font-style: italic;
+}
+
+.markdown-body blockquote::before {
+  content: '"';
+  position: absolute;
+  top: 0.25rem;
+  left: 1rem;
+  font-size: 3rem;
+  line-height: 1;
+  color: color-mix(in srgb, var(--accent) 30%, transparent);
+  font-family: Georgia, serif;
+  font-weight: 700;
+}
+
+.markdown-body blockquote p {
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.markdown-body blockquote p + p {
+  margin-top: 0.75rem;
+}
+
+/* ============================================
+   INLINE CODE
+   ============================================ */
+
+.markdown-body code:not(pre code) {
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-tertiary));
+  color: color-mix(in srgb, var(--accent) 80%, #db2777);
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.88em;
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+/* ============================================
+   CODE BLOCK — dengan window dots
+   ============================================ */
+
+.markdown-body pre {
+  margin: 2rem 0;
+  padding: 2.75rem 1.5rem 1.5rem;
+  background: #0f172a;
+  border-radius: 16px;
+  overflow-x: auto;
+  line-height: 1.7;
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.markdown-body pre::before {
+  content: '';
+  position: absolute;
+  top: 0.9rem;
+  left: 1rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow:
+    20px 0 0 #f59e0b,
+    40px 0 0 #10b981;
+}
+
+.markdown-body pre::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(148, 163, 184, 0.3),
+    transparent
+  );
+}
+
+.markdown-body pre code {
+  background: transparent;
+  color: #e2e8f0;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  display: block;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  line-height: 1.65;
+}
+
+html.dark-mode .markdown-body pre {
+  background: #020617;
+  border-color: rgba(148, 163, 184, 0.15);
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* ============================================
+   TABLE
+   ============================================ */
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--border-color);
+  font-size: 0.95rem;
+}
+
+.markdown-body th {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 8%, var(--bg-secondary)),
+    color-mix(in srgb, var(--accent-secondary, var(--accent)) 8%, var(--bg-secondary))
+  );
+  padding: 0.95rem 1.15rem;
+  text-align: left;
+  font-weight: 800;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.markdown-body td {
+  padding: 0.95rem 1.15rem;
+  border-bottom: 1px solid var(--bg-tertiary);
+  color: var(--text-secondary);
+  transition: background 0.2s;
+}
+
+.markdown-body tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown-body tbody tr:hover td {
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+
+/* ============================================
+   HR
+   ============================================ */
+
+.markdown-body hr {
+  margin: 2.5rem 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--border-color) 20%,
+    var(--accent) 50%,
+    var(--border-color) 80%,
+    transparent
+  );
+  opacity: 0.6;
+}
+
+/* ============================================
+   IMAGE
+   ============================================ */
+
+.markdown-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin: 2rem 0;
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.18),
+    0 0 0 1px var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.markdown-body img:hover {
+  transform: scale(1.01);
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.22),
+    0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .markdown-body {
+    font-size: 1rem;
+  }
+
+  .markdown-body h1 { font-size: 1.65rem; }
+  .markdown-body h2 { font-size: 1.35rem; }
+  .markdown-body h3 { font-size: 1.15rem; }
+  .markdown-body h4 { font-size: 1rem; }
+
+  .markdown-body pre {
+    padding: 2.5rem 1rem 1rem;
+    border-radius: 12px;
+    font-size: 0.82rem;
+  }
+
+  .markdown-body pre::before {
+    top: 0.7rem;
+    left: 0.85rem;
+    width: 9px;
+    height: 9px;
+    box-shadow:
+      17px 0 0 #f59e0b,
+      34px 0 0 #10b981;
+  }
+
+  .markdown-body blockquote {
+    padding: 1rem 1.15rem 1rem 1.35rem;
+    font-size: 1rem;
+  }
+
+  .markdown-body blockquote::before {
+    font-size: 2.5rem;
+    left: 0.75rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .markdown-body table {
+    font-size: 0.85rem;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .markdown-body th,
+  .markdown-body td {
+    padding: 0.7rem 0.85rem;
+  }
+
+  .markdown-body img {
+    border-radius: 10px;
+    margin: 1.5rem 0;
+  }
+}

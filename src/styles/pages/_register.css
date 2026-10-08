@@ -1,0 +1,255 @@
+/* ============================================
+   REGISTER PAGE
+   ============================================ */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 50%, #ffffff 100%);
+}
+
+html.dark-mode .auth-page {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 20px 50px -12px rgba(59, 130, 246, 0.2);
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+}
+
+.auth-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 0.35rem;
+}
+
+.auth-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.auth-field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   INPUT FULL WIDTH — FIX PASSWORD FIELD
+   ============================================ */
+
+/* Semua input di dalam auth-field */
+.auth-field .p-inputtext,
+.auth-field .p-inputtextarea,
+.auth-field .p-password,
+.auth-field .p-password-input,
+.auth-field .p-password > input,
+.auth-field .p-password .p-inputtext,
+.auth-field > .p-inputtext,
+.auth-field > .p-password,
+.auth-field > .p-inputtext.w-full,
+.auth-field > .p-password.w-full {
+  width: 100% !important;
+  display: block;
+}
+
+/* Password wrapper — flex column biar icon toggle bisa absolute */
+.auth-field .p-password,
+.auth-field > .p-password {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Toggle mask icon (mata) — posisi di kanan */
+.auth-field .p-password .p-password-toggle-mask-icon,
+.auth-field > .p-password .p-password-toggle-mask-icon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--text-muted);
+  z-index: 2;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.auth-field .p-password .p-password-toggle-mask-icon:hover,
+.auth-field > .p-password .p-password-toggle-mask-icon:hover {
+  color: var(--accent);
+}
+
+/* Input password — full width */
+.auth-field .p-password .p-inputtext,
+.auth-field > .p-password .p-inputtext {
+  width: 100% !important;
+  padding-right: 2.5rem; /* kasih ruang buat icon mata */
+}
+
+/* ============================================
+   HINT & ERROR
+   ============================================ */
+
+.auth-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.auth-field .p-error,
+.auth-field small.p-error {
+  font-size: 0.8rem;
+  color: #ef4444;
+  display: block;
+}
+
+/* ============================================
+   SLUG INPUT
+   ============================================ */
+
+.auth-slug-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--bg-primary);
+  transition: var(--transition-base);
+  width: 100%;
+}
+
+.auth-slug-input:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.auth-slug-prefix {
+  padding: 0.75rem 0.5rem 0.75rem 0.75rem;
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  border-right: 1px solid var(--border-color);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.auth-slug-input .p-inputtext {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  flex: 1;
+  padding-left: 0.5rem;
+  width: 100%;
+}
+
+/* ============================================
+   SUBMIT & FOOTER
+   ============================================ */
+
+.auth-submit-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bg-tertiary);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.auth-footer p {
+  margin: 0 0 0.5rem;
+}
+
+.auth-link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+
+.auth-link-muted {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.auth-link-muted:hover {
+  color: var(--accent);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-title {
+    font-size: 1.25rem;
+  }
+
+  .auth-slug-prefix {
+    font-size: 0.75rem;
+    padding: 0.75rem 0.25rem 0.75rem 0.5rem;
+  }
+}

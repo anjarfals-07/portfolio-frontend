@@ -1,0 +1,221 @@
+/* ============================================================
+   OWNER LAYOUT — Specific Overrides
+   Base: shared/_shell.css
+   ============================================================ */
+
+/**
+ * File ini berisi override khusus Owner Dashboard.
+ * Semua base style (shell, aside, crown) ada di shared/_shell.css.
+ */
+
+
+/* ============================================================
+   1. OWNER — SHOW OWNER-ONLY ELEMENTS
+   ============================================================ */
+
+.admin-shell .admin-aside-user {
+  display: flex;
+}
+
+.admin-shell .admin-preview-link {
+  display: inline-flex;
+}
+
+
+/* ============================================================
+   2. OWNER — SIDEBAR TWEAKS
+   ============================================================ */
+
+.admin-shell .admin-aside-nav {
+  gap: 1.35rem;
+}
+
+.admin-shell .admin-aside-group-label {
+  opacity: 1;
+}
+
+
+/* ============================================================
+   3. OWNER — TOPBAR TWEAKS
+   ============================================================ */
+
+.admin-shell .admin-preview-link {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.admin-shell .admin-userchip {
+  cursor: pointer;
+}
+
+.admin-shell .admin-userchip:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--danger, #ef4444) 30%,
+    var(--border-color)
+  );
+  background: color-mix(in srgb, var(--danger, #ef4444) 5%, transparent);
+}
+
+.admin-shell .admin-userchip:hover .admin-userchip-caret {
+  color: var(--danger, #ef4444);
+}
+
+
+/* ============================================================
+   4. OWNER — CONTENT WIDTH  ⭐ KUNCI PERBAIKAN
+   ============================================================ */
+
+/**
+ * OWNER PAKAI FULL WIDTH.
+ *
+ * Content mengisi seluruh area admin-surface (dikurangi padding).
+ * Tidak ada max-width constraint — jadi di layar 1920px,
+ * content area bisa 1800px+.
+ *
+ * Padding horizontal tetap ada biar tidak nempel ke tepi.
+ */
+.admin-shell .admin-surface {
+  --a-max-content: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* Override max-width child — biar benar-benar full width */
+.admin-shell .admin-surface > * {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+/* Padding lebih lega di layar besar */
+@media (min-width: 1600px) {
+  .admin-shell .admin-surface {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 2000px) {
+  .admin-shell .admin-surface {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+
+/* ============================================================
+   5. OWNER — DASHBOARD GRIDS
+   ============================================================ */
+
+/**
+ * Owner dashboard pakai 4 metrics.
+ * Grid auto-fit untuk layout yang lebih fleksibel di layar besar.
+ */
+.admin-shell .dash-metrics {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.15rem;
+}
+
+.admin-shell .dash-quick {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.15rem;
+}
+
+/* Di layar sangat lebar, metric cards tidak perlu lebih besar */
+@media (min-width: 1800px) {
+  .admin-shell .dash-metrics {
+    gap: 1.35rem;
+  }
+}
+
+
+/* ============================================================
+   6. OWNER — DARK MODE
+   ============================================================ */
+
+html.dark-mode .admin-shell {
+  background: #0a0a0a;
+}
+
+html.dark-mode .admin-shell .admin-aside {
+  background: #0a0a0a;
+}
+
+html.dark-mode .admin-shell .admin-aside-user {
+  background: #0d0d0d;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+
+/* ============================================================
+   7. OWNER — RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1400px) {
+  .admin-shell .admin-surface {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .admin-shell .dash-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-shell .dash-quick {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .admin-shell .admin-crown-menu {
+    display: inline-flex;
+  }
+
+  .admin-shell .admin-preview-link span {
+    display: none;
+  }
+
+  .admin-shell .admin-preview-link {
+    padding: 0.4rem;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+  }
+
+  .admin-shell .admin-surface {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-shell .admin-userchip-meta {
+    display: none;
+  }
+
+  .admin-shell .admin-userchip {
+    padding: 0.25rem;
+    gap: 0.3rem;
+  }
+
+  .admin-shell .dash-metrics,
+  .admin-shell .dash-quick {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-shell .admin-surface {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-shell .admin-surface {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

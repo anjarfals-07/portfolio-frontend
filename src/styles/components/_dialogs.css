@@ -1,0 +1,834 @@
+/* ============================================================
+   MODERN DIALOG SYSTEM — Centered & Scrollable
+   ============================================================
+   Fitur:
+   - Posisi dialog SELALU di tengah (centered)
+   - Content scrollable dengan header/footer fixed
+   - Modern, clean design
+   - Mobile friendly (tidak fullscreen, tapi responsive)
+   ============================================================ */
+
+/* ============================================================
+   1. DIALOG MASK — Overlay belakang
+   ============================================================ */
+
+.p-dialog-mask {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 12000 !important;
+  background: rgba(15, 23, 42, 0.5) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem;
+  animation: dlg-fade-in 0.2s ease;
+}
+
+html.dark-mode .p-dialog-mask {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
+
+@keyframes dlg-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============================================================
+   2. DIALOG CONTAINER — Modern Base
+   ============================================================ */
+
+.p-dialog {
+  position: relative !important;
+  z-index: 12001 !important;
+  background: var(--bg-primary, #ffffff) !important;
+  border: 1px solid var(--border-color, #e5e7eb) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow:
+    0 32px 72px -16px rgba(15, 23, 42, 0.32),
+    0 12px 32px -8px rgba(15, 23, 42, 0.16),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset !important;
+  max-height: 92vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  animation: dlg-pop-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html.dark-mode .p-dialog {
+  background: #171717 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+    0 32px 72px -16px rgba(0, 0, 0, 0.7),
+    0 12px 32px -8px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset !important;
+}
+
+@keyframes dlg-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ============================================================
+   3. DIALOG HEADER
+   ============================================================ */
+
+.p-dialog .p-dialog-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1rem !important;
+  padding: 1.125rem 1.375rem !important;
+  border-bottom: 1px solid var(--border-color, #e5e7eb) !important;
+  background: var(--bg-primary, #ffffff) !important;
+  color: var(--text-primary, #0f172a) !important;
+  flex-shrink: 0 !important;
+  border-radius: 20px 20px 0 0 !important;
+}
+
+html.dark-mode .p-dialog .p-dialog-header {
+  background: #171717 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+  color: #f1f5f9 !important;
+}
+
+.p-dialog .p-dialog-title {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: inherit !important;
+  line-height: 1.3 !important;
+}
+
+/* Close button — modern pill */
+.p-dialog .p-dialog-header-close,
+.p-dialog .p-dialog-header-icon {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 10px !important;
+  color: var(--text-muted, #6b7280) !important;
+  background: transparent !important;
+  border: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  flex-shrink: 0 !important;
+  font-size: 0.875rem !important;
+}
+
+.p-dialog .p-dialog-header-close:hover,
+.p-dialog .p-dialog-header-icon:hover {
+  background: var(--bg-tertiary, #f3f4f6) !important;
+  color: var(--text-primary, #0f172a) !important;
+  transform: rotate(90deg);
+}
+
+html.dark-mode .p-dialog .p-dialog-header-close:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #f1f5f9 !important;
+}
+
+/* ============================================================
+   4. DIALOG CONTENT — Scrollable
+   ============================================================ */
+
+.p-dialog .p-dialog-content {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  min-height: 0 !important;
+  padding: 1.375rem 1.5rem !important;
+  background: var(--bg-primary, #ffffff) !important;
+  color: var(--text-primary, #0f172a) !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong, #d1d5db) transparent;
+}
+
+html.dark-mode .p-dialog .p-dialog-content {
+  background: #171717 !important;
+  color: #cbd5e1 !important;
+}
+
+/* Modern thin scrollbar */
+.p-dialog .p-dialog-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.p-dialog .p-dialog-content::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+
+.p-dialog .p-dialog-content::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--border-strong, #d1d5db) 70%, transparent);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.p-dialog .p-dialog-content::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted, #6b7280);
+  background-clip: padding-box;
+}
+
+/* ============================================================
+   5. DIALOG FOOTER
+   ============================================================ */
+
+.p-dialog .p-dialog-footer {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 0.625rem !important;
+  padding: 1rem 1.5rem !important;
+  border-top: 1px solid var(--border-color, #e5e7eb) !important;
+  background: var(--surface-subtle, #f9fafb) !important;
+  flex-shrink: 0 !important;
+  border-radius: 0 0 20px 20px !important;
+}
+
+html.dark-mode .p-dialog .p-dialog-footer {
+  background: #1a1a1a !important;
+  border-top-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ============================================================
+   6. CV DIALOG HEADER — Custom icon + title
+   ============================================================ */
+
+.cv-dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-width: 0;
+}
+
+.cv-dialog-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  color: white;
+  box-shadow:
+    0 6px 16px -4px rgba(59, 130, 246, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.cv-dialog-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.cv-dialog-header-text strong {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary, #0f172a);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.cv-dialog-header-text span {
+  font-size: 0.75rem;
+  color: var(--text-muted, #6b7280);
+  line-height: 1.3;
+}
+
+/* ============================================================
+   7. CV FORM FOOTER — Modern Buttons
+   ============================================================ */
+
+.cv-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  width: 100%;
+}
+
+.cv-form-footer-btn {
+  min-width: 96px !important;
+  height: 40px !important;
+  border-radius: 10px !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  transition: all 0.15s ease !important;
+}
+
+.cv-form-footer-btn-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%) !important;
+  border: none !important;
+  color: white !important;
+  box-shadow:
+    0 4px 12px -3px rgba(59, 130, 246, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.cv-form-footer-btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow:
+    0 8px 20px -4px rgba(59, 130, 246, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.08) !important;
+}
+
+.cv-form-footer-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   8. FORM CONTENT — Modern Spacing
+   ============================================================ */
+
+.cv-dialog-education .cv-form,
+.cv-form-modal .cv-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cv-dialog-education .cv-form-field,
+.cv-form-modal .cv-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cv-dialog-education .cv-form-label,
+.cv-form-modal .cv-form-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary, #0f172a);
+  letter-spacing: -0.005em;
+}
+
+.cv-dialog-education .cv-form-required,
+.cv-form-modal .cv-form-required {
+  color: #ef4444;
+  margin-left: 2px;
+}
+
+.cv-dialog-education .cv-form-grid,
+.cv-form-modal .cv-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+}
+
+.cv-dialog-education .cv-form-error,
+.cv-form-modal .cv-form-error {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+/* Inputs — modern rounded */
+.cv-dialog-education .p-inputtext,
+.cv-form-modal .p-inputtext,
+.cv-dialog-education .p-inputtextarea,
+.cv-form-modal .p-inputtextarea,
+.cv-dialog-education .p-calendar,
+.cv-form-modal .p-calendar {
+  width: 100% !important;
+  font-size: 0.875rem !important;
+  border-radius: 10px !important;
+  transition: all 0.15s ease !important;
+}
+
+.cv-dialog-education .p-inputtext,
+.cv-form-modal .p-inputtext {
+  padding: 0.625rem 0.875rem !important;
+}
+
+.cv-dialog-education .p-inputtextarea,
+.cv-form-modal .p-inputtextarea {
+  padding: 0.625rem 0.875rem !important;
+  min-height: 76px !important;
+  resize: vertical;
+  line-height: 1.5 !important;
+}
+
+.cv-dialog-education .p-inputtext:focus,
+.cv-form-modal .p-inputtext:focus,
+.cv-dialog-education .p-inputtextarea:focus,
+.cv-form-modal .p-inputtextarea:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12) !important;
+  outline: none !important;
+}
+
+/* ============================================================
+   9. CV FORM MODAL — Compact Width
+   ============================================================ */
+
+.p-dialog.cv-dialog-education,
+.p-dialog.cv-form-modal {
+  /* Width dari props, no override */
+  max-width: calc(100vw - 2rem) !important;
+}
+
+.p-dialog.cv-dialog-education .p-dialog-header,
+.p-dialog.cv-form-modal .p-dialog-header {
+  padding: 1.125rem 1.375rem !important;
+}
+
+.p-dialog.cv-dialog-education .p-dialog-content,
+.p-dialog.cv-form-modal .p-dialog-content {
+  padding: 1.375rem 1.5rem !important;
+  max-height: calc(85vh - 160px) !important;
+}
+
+.p-dialog.cv-dialog-education .p-dialog-footer,
+.p-dialog.cv-form-modal .p-dialog-footer {
+  padding: 1rem 1.5rem !important;
+}
+
+/* ============================================================
+   10. EXCLUDE CUSTOMIZER
+   ============================================================ */
+
+.p-dialog.cvs-modal .p-dialog-header,
+.p-dialog.cvs-modal .p-dialog-footer {
+  display: none !important;
+}
+
+.p-dialog.cvs-modal .p-dialog-content {
+  padding: 0 !important;
+  height: 88vh !important;
+  max-height: 860px !important;
+  min-height: 500px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+/* ============================================================
+   11. CONFIRM DIALOG — Centered + Close 1x Klik
+   ============================================================ */
+
+.p-confirm-dialog {
+  z-index: 12002 !important;
+  max-width: 440px !important;
+  pointer-events: auto !important;
+  border-radius: 20px !important;
+}
+
+.p-confirm-dialog .p-dialog-header {
+  padding: 1.25rem 1.375rem 0.5rem !important;
+  border-bottom: none !important;
+  background: var(--bg-primary, #ffffff) !important;
+  border-radius: 20px 20px 0 0 !important;
+}
+
+html.dark-mode .p-confirm-dialog .p-dialog-header {
+  background: #171717 !important;
+}
+
+.p-confirm-dialog .p-dialog-content {
+  padding: 0 1.5rem 1rem !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0.875rem !important;
+  overflow: visible !important;
+  background: var(--bg-primary, #ffffff) !important;
+}
+
+html.dark-mode .p-confirm-dialog .p-dialog-content {
+  background: #171717 !important;
+}
+
+.p-confirm-dialog .p-confirm-dialog-icon {
+  font-size: 1.5rem !important;
+  color: #f59e0b !important;
+  flex-shrink: 0 !important;
+  margin-top: 0.1rem !important;
+  width: 44px !important;
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(245, 158, 11, 0.12) !important;
+  border-radius: 12px !important;
+}
+
+.p-confirm-dialog .p-confirm-dialog-message {
+  font-size: 0.9375rem !important;
+  line-height: 1.55 !important;
+  color: var(--text-primary, #0f172a) !important;
+  margin: 0 !important;
+  flex: 1 !important;
+  padding-top: 0.5rem !important;
+}
+
+.p-confirm-dialog .p-dialog-footer {
+  padding: 0.75rem 1.5rem 1.25rem !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 0.5rem !important;
+  border-top: none !important;
+  background: var(--bg-primary, #ffffff) !important;
+  border-radius: 0 0 20px 20px !important;
+}
+
+html.dark-mode .p-confirm-dialog .p-dialog-footer {
+  background: #171717 !important;
+}
+
+.p-confirm-dialog .p-dialog-footer .p-button {
+  min-width: 96px !important;
+  height: 40px !important;
+  border-radius: 10px !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+}
+
+/* Close button — clickable */
+.p-confirm-dialog .p-dialog-header-close,
+.p-confirm-dialog .p-dialog-header-icon {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* ============================================================
+   12. MOBILE (< 640px) — TETAP CENTERED, tidak fullscreen
+   ============================================================ */
+
+@media (max-width: 640px) {
+  .p-dialog-mask {
+    padding: 1rem !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Dialog mobile — tetap centered dengan margin */
+  .p-dialog:not(.p-confirm-dialog) {
+    width: calc(100vw - 2rem) !important;
+    max-width: calc(100vw - 2rem) !important;
+    max-height: 88vh !important;
+    max-height: 88dvh !important;
+    height: auto !important;
+    border-radius: 20px !important;
+    animation: dlg-pop-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  }
+
+  /* CV form dialog — compact width di mobile */
+  .p-dialog.cv-dialog-education,
+  .p-dialog.cv-form-modal {
+    width: calc(100vw - 1.5rem) !important;
+    max-width: calc(100vw - 1.5rem) !important;
+    max-height: 88vh !important;
+    max-height: 88dvh !important;
+  }
+
+  .p-dialog:not(.p-confirm-dialog):not(.cvs-modal) .p-dialog-header {
+    padding: 1rem 1.125rem !important;
+    border-radius: 20px 20px 0 0 !important;
+  }
+
+  .p-dialog:not(.p-confirm-dialog) .p-dialog-content {
+    padding: 1.125rem !important;
+    max-height: none !important;
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
+  }
+
+  .p-dialog:not(.p-confirm-dialog):not(.cvs-modal) .p-dialog-footer {
+    padding: 0.875rem 1.125rem !important;
+    padding-bottom: max(0.875rem, env(safe-area-inset-bottom)) !important;
+    border-radius: 0 0 20px 20px !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Grid ke 1 kolom di mobile */
+  .cv-dialog-education .cv-form-grid,
+  .cv-form-modal .cv-form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  /* Footer buttons full width */
+  .cv-form-footer {
+    flex-direction: column-reverse !important;
+    gap: 0.5rem !important;
+  }
+
+  .cv-form-footer .cv-form-footer-btn {
+    width: 100% !important;
+    min-height: 44px !important;
+  }
+
+  /* Header compact */
+  .cv-dialog-header-icon {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 1rem !important;
+    border-radius: 11px !important;
+  }
+
+  .cv-dialog-header-text strong {
+    font-size: 0.875rem !important;
+  }
+
+  .cv-dialog-header-text span {
+    font-size: 0.6875rem !important;
+  }
+
+  /* Confirm dialog */
+  .p-confirm-dialog {
+    width: calc(100vw - 2rem) !important;
+    max-width: 420px !important;
+    border-radius: 20px !important;
+  }
+
+  .p-confirm-dialog .p-dialog-footer {
+    flex-direction: column-reverse !important;
+    gap: 0.5rem !important;
+  }
+
+  .p-confirm-dialog .p-dialog-footer .p-button {
+    width: 100% !important;
+    min-height: 44px !important;
+  }
+}
+
+/* ============================================================
+   13. TABLET (641-1024px)
+   ============================================================ */
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .p-dialog:not(.p-confirm-dialog) {
+    max-width: min(90vw, 640px) !important;
+    max-height: 88vh !important;
+  }
+
+  .p-dialog:not(.p-confirm-dialog):not(.cvs-modal) .p-dialog-content {
+    max-height: calc(88vh - 160px) !important;
+  }
+}
+
+/* ============================================================
+   14. FORCE ON TOP
+   ============================================================ */
+
+body > div.p-dialog,
+body > div[data-pc-name="dialog"].p-dialog {
+  z-index: 12001 !important;
+}
+
+body > div.p-dialog-mask,
+body > div.p-component-overlay {
+  z-index: 12000 !important;
+}
+
+/* ============================================================
+   15. REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .p-dialog,
+  .p-dialog-mask {
+    animation: none !important;
+  }
+}
+
+
+
+
+/* ============================================================
+   DATE PICKER PANEL — Fix z-index & positioning
+   ============================================================ */
+
+/* Date picker overlay panel — di atas dialog */
+.p-datepicker.p-component-overlay,
+.p-datepicker:not(.p-datepicker-inline) {
+  z-index: 12100 !important;
+  background: var(--bg-primary, #ffffff) !important;
+  border: 1px solid var(--border-color, #e5e7eb) !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0 20px 48px -12px rgba(15, 23, 42, 0.28),
+    0 8px 20px -8px rgba(15, 23, 42, 0.15) !important;
+  padding: 0.75rem !important;
+  margin-top: 4px !important;
+}
+
+html.dark-mode .p-datepicker.p-component-overlay,
+html.dark-mode .p-datepicker:not(.p-datepicker-inline) {
+  background: #1e293b !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Date picker header */
+.p-datepicker .p-datepicker-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-color, #e5e7eb) !important;
+  padding: 0.5rem !important;
+  border-radius: 8px 8px 0 0 !important;
+  color: var(--text-primary, #0f172a) !important;
+}
+
+html.dark-mode .p-datepicker .p-datepicker-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f1f5f9 !important;
+}
+
+/* Date picker navigation buttons */
+.p-datepicker .p-datepicker-prev,
+.p-datepicker .p-datepicker-next {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  color: var(--text-muted, #6b7280) !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.p-datepicker .p-datepicker-prev:hover,
+.p-datepicker .p-datepicker-next:hover {
+  background: var(--bg-tertiary, #f3f4f6) !important;
+  color: var(--text-primary, #0f172a) !important;
+}
+
+html.dark-mode .p-datepicker .p-datepicker-prev:hover,
+html.dark-mode .p-datepicker .p-datepicker-next:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #f1f5f9 !important;
+}
+
+/* Title (month/year) */
+.p-datepicker .p-datepicker-title {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.375rem !important;
+  font-weight: 700 !important;
+  color: var(--text-primary, #0f172a) !important;
+}
+
+html.dark-mode .p-datepicker .p-datepicker-title {
+  color: #f1f5f9 !important;
+}
+
+.p-datepicker .p-datepicker-title .p-datepicker-month,
+.p-datepicker .p-datepicker-title .p-datepicker-year {
+  color: inherit !important;
+  font-weight: 700 !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+
+.p-datepicker .p-datepicker-title .p-datepicker-month:hover,
+.p-datepicker .p-datepicker-title .p-datepicker-year:hover {
+  background: color-mix(in srgb, var(--accent, #3b82f6) 10%, transparent) !important;
+  color: var(--accent, #3b82f6) !important;
+}
+
+/* Month/year picker */
+.p-datepicker .p-monthpicker,
+.p-datepicker .p-yearpicker {
+  padding: 0.5rem !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 0.375rem !important;
+}
+
+.p-datepicker .p-monthpicker-month,
+.p-datepicker .p-yearpicker-year {
+  padding: 0.625rem 0.5rem !important;
+  border-radius: 8px !important;
+  color: var(--text-primary, #0f172a) !important;
+  background: transparent !important;
+  border: none !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.p-datepicker .p-monthpicker-month:hover,
+.p-datepicker .p-yearpicker-year:hover {
+  background: var(--bg-tertiary, #f3f4f6) !important;
+}
+
+.p-datepicker .p-monthpicker-month.p-highlight,
+.p-datepicker .p-yearpicker-year.p-highlight {
+  background: linear-gradient(135deg, #3b82f6, #6366f1) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px -3px rgba(59, 130, 246, 0.5) !important;
+}
+
+html.dark-mode .p-datepicker .p-monthpicker-month,
+html.dark-mode .p-datepicker .p-yearpicker-year {
+  color: #e2e8f0 !important;
+}
+
+html.dark-mode .p-datepicker .p-monthpicker-month:hover,
+html.dark-mode .p-datepicker .p-yearpicker-year:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ============================================================
+   CRITICAL FIX: Dialog content TIDAK overflow: hidden
+   untuk element yang di-append ke body (date picker panel)
+   ============================================================ */
+
+/* Override: date picker panel HARUS di atas dialog */
+body > .p-datepicker,
+body > .p-datepicker.p-component-overlay {
+  z-index: 12100 !important;
+}
+
+/* Trigger button (ikon calendar) */
+.p-calendar .p-button,
+.p-calendar .p-datepicker-trigger {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-muted, #6b7280) !important;
+  width: 38px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.p-calendar .p-button:hover,
+.p-calendar .p-datepicker-trigger:hover {
+  color: var(--accent, #3b82f6) !important;
+  background: color-mix(in srgb, var(--accent, #3b82f6) 8%, transparent) !important;
+}
+
+/* Pastikan Calendar wrapper punya position relative supaya trigger posisinya benar */
+.p-calendar {
+  position: relative !important;
+  display: inline-flex !important;
+  width: 100% !important;
+}
+
+.p-calendar .p-inputtext {
+  flex: 1 !important;
+  padding-right: 2.75rem !important;
+}

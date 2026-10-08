@@ -1,0 +1,138 @@
+/* ============================================================
+   ADMIN LAYOUT — Specific Overrides
+   Base: shared/_shell.css
+   ============================================================ */
+
+/**
+ * File ini berisi override KECIL yang khusus untuk Admin Panel.
+ * Semua base style (shell, aside, crown, cmdk) ada di shared/_shell.css.
+ *
+ * Yang di-override di sini:
+ * 1. Admin tidak render user card di sidebar — jadi tidak perlu style tambahan
+ * 2. Admin pakai Search ⌘K di topbar (Owner pakai Preview link)
+ * 3. Admin pakai dropdown menu untuk user (Owner pakai logout langsung)
+ * 4. Beberapa spacing admin sedikit beda biar proporsional dengan kontennya
+ */
+
+
+/* ============================================================
+   1. ADMIN — HIDE OWNER-ONLY ELEMENTS
+   ============================================================ */
+
+/**
+ * Admin tidak render user card, tapi kalau ada sisa render
+ * (misal dari cache / bug), sembunyikan.
+ */
+.admin-shell:not(.admin-shell-owner) .admin-aside-user {
+  display: none;
+}
+
+/**
+ * Admin juga tidak render preview link — pakai search ⌘K.
+ * Kalau ada sisa render, sembunyikan.
+ */
+.admin-shell:not(.admin-shell-owner) .admin-preview-link {
+  display: none;
+}
+
+
+/* ============================================================
+   2. ADMIN — SIDEBAR TWEAKS
+   ============================================================ */
+
+/**
+ * Admin punya 3 nav item (Dashboard, Users, Settings) — 
+ * tidak perlu banyak gap antar section.
+ */
+.admin-shell .admin-aside-nav {
+  gap: 1.15rem;
+}
+
+/**
+ * Admin pakai section label dengan warna sedikit lebih redup
+ * biar tidak terlalu ramai karena cuma 2 section.
+ */
+.admin-shell .admin-aside-group-label {
+  opacity: 0.85;
+}
+
+
+/* ============================================================
+   3. ADMIN — TOPBAR TWEAKS
+   ============================================================ */
+
+/**
+ * Admin punya Search ⌘K yang lebar (260px).
+ * Kalau viewport sedang, biar tetap rapi.
+ */
+@media (max-width: 1100px) {
+  .admin-shell .admin-search {
+    min-width: 200px;
+  }
+}
+
+/**
+ * Admin menu dropdown — pastikan item danger (Logout) merah.
+ * Style base sudah ada di shared, ini cuma guard.
+ */
+.admin-shell .admin-menu .admin-menu-item-danger .p-menuitem-link:hover {
+  background: color-mix(in srgb, var(--danger, #ef4444) 12%, transparent);
+}
+
+
+/* ============================================================
+   4. ADMIN — CONTENT WIDTH
+   ============================================================ */
+
+/**
+ * Admin punya table yang lebar (ManageUsers, dll) — 
+ * biar ada sedikit ruang lebih.
+ */
+.admin-shell .admin-surface {
+  --a-max-content: 1360px;
+}
+
+
+/* ============================================================
+   5. ADMIN — DARK MODE TWEAKS
+   ============================================================ */
+
+/**
+ * Dark mode admin — background sedikit lebih netral
+ * biar tidak terlalu "biru" seperti owner.
+ */
+html.dark-mode .admin-shell {
+  background: #0a0a0a;
+}
+
+html.dark-mode .admin-shell .admin-aside {
+  background: #0a0a0a;
+}
+
+
+/* ============================================================
+   6. ADMIN — RESPONSIVE
+   ============================================================ */
+
+/**
+ * Di tablet, admin bisa tampil sidebar penuh karena konten
+ * admin lebih ringkas (tidak ada preview).
+ */
+@media (max-width: 1024px) {
+  .admin-shell .admin-crown-menu {
+    display: inline-flex;
+  }
+}
+
+
+/* ============================================================
+   7. ADMIN — COMMAND PALETTE POSITION
+   ============================================================ */
+
+/**
+ * Admin pakai command palette ⌘K untuk search.
+ * Position sedikit lebih atas biar pas dengan keyboard shortcut.
+ */
+.admin-shell .admin-cmdk-scrim {
+  padding-top: 12vh;
+}

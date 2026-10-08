@@ -1,0 +1,625 @@
+/* ============================================
+   LOGIN PAGE
+   ============================================ */
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 50%, #ffffff 100%);
+}
+
+html.dark-mode .login-wrapper {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 20px 50px -12px rgba(59, 130, 246, 0.2);
+  animation: fadeInUp 0.5s ease-out;
+}
+
+html.dark-mode .login-card {
+  background: #0d0d0d;
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: var(--gradient-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  box-shadow: 0 10px 25px -8px rgba(59, 130, 246, 0.5);
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.login-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.login-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+}
+
+/* ============================================
+   USERNAME INPUT
+   ============================================ */
+
+.login-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.login-input-icon-left {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1rem;
+  z-index: 2;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.login-input-wrapper:focus-within .login-input-icon-left {
+  color: var(--accent);
+}
+
+.login-input-icon-right {
+  position: absolute;
+  right: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1rem;
+  z-index: 2;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.login-input-icon-right:hover {
+  color: var(--accent);
+}
+
+/* ⭐ Fix warna username — samakan dengan password */
+.login-input,
+.login-field .p-inputtext,
+.login-field input[type='text'],
+.login-field input[type='email'],
+.login-field input[type='password'] {
+  width: 100% !important;
+  height: 46px !important;
+  padding: 0 0.85rem 0 2.75rem !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid var(--border-strong) !important;
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  transition: var(--transition-base);
+  outline: none !important;
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+}
+
+.login-input:focus,
+.login-field .p-inputtext:focus,
+.login-field input[type='text']:focus,
+.login-field input[type='email']:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent) !important;
+  background: var(--bg-primary) !important;
+}
+
+.login-input::placeholder,
+.login-field .p-inputtext::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* Dark mode — username */
+html.dark-mode .login-input,
+html.dark-mode .login-field .p-inputtext,
+html.dark-mode .login-field input[type='text'],
+html.dark-mode .login-field input[type='email'] {
+  background: #0d0d0d !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f1f5f9 !important;
+}
+
+html.dark-mode .login-input:focus,
+html.dark-mode .login-field .p-inputtext:focus {
+  background: #131313 !important;
+  border-color: var(--accent) !important;
+}
+
+/* ============================================
+   PASSWORD — FULL WIDTH + SAMA WARNA
+   ============================================ */
+
+.login-password,
+.login-field .p-password,
+.login-field > .p-password {
+  width: 100% !important;
+  display: block;
+  position: relative;
+}
+
+.login-password .p-password-input,
+.login-password-input,
+.login-field .p-password .p-inputtext,
+.login-field .p-password input {
+  width: 100% !important;
+  height: 46px !important;
+  padding: 0 2.75rem 0 0.85rem !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid var(--border-strong) !important;
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  transition: var(--transition-base);
+  outline: none !important;
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+}
+
+.login-password .p-password-input:focus,
+.login-password-input:focus,
+.login-field .p-password .p-inputtext:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent) !important;
+  background: var(--bg-primary) !important;
+}
+
+.login-password .p-password-input::placeholder,
+.login-password-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* Dark mode — password */
+html.dark-mode .login-password .p-password-input,
+html.dark-mode .login-password-input,
+html.dark-mode .login-field .p-password .p-inputtext,
+html.dark-mode .login-field .p-password input {
+  background: #0d0d0d !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f1f5f9 !important;
+}
+
+html.dark-mode .login-password .p-password-input:focus,
+html.dark-mode .login-password-input:focus,
+html.dark-mode .login-field .p-password .p-inputtext:focus {
+  background: #131313 !important;
+  border-color: var(--accent) !important;
+}
+
+/* ============================================
+   PASSWORD — TOGGLE MASK ICON (mata)
+   ============================================ */
+
+.login-password .p-password-toggle-mask-icon,
+.login-field .p-password .p-password-toggle-mask-icon,
+.login-password .p-icon-field-icon,
+.login-field .p-password .p-icon-field-icon,
+.login-field .p-password .p-icon-field-right > i,
+.login-field .p-password .p-icon-field-right > svg {
+  position: absolute !important;
+  right: 0.85rem !important;
+  top: calc(50% + 1px) !important;
+  transform: translateY(-50%) !important;
+  color: var(--text-muted) !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  z-index: 3 !important;
+  transition: color 0.2s, transform 0.15s !important;
+  left: auto !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  pointer-events: auto !important;
+}
+
+.login-password .p-password-toggle-mask-icon:hover,
+.login-field .p-password .p-password-toggle-mask-icon:hover,
+.login-field .p-password .p-icon-field-icon:hover {
+  color: var(--accent) !important;
+  transform: translateY(-50%) scale(1.1) !important;
+}
+
+html.dark-mode .login-password .p-password-toggle-mask-icon,
+html.dark-mode .login-field .p-password .p-password-toggle-mask-icon,
+html.dark-mode .login-field .p-password .p-icon-field-icon {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+html.dark-mode .login-password .p-password-toggle-mask-icon:hover,
+html.dark-mode .login-field .p-password .p-password-toggle-mask-icon:hover {
+  color: var(--accent) !important;
+}
+
+/* ============================================
+   REMEMBER ME
+   ============================================ */
+
+.login-remember {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: -0.25rem;
+}
+
+.login-remember-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Checkbox PrimeReact fix */
+.login-remember .p-checkbox {
+  width: 20px;
+  height: 20px;
+}
+
+.login-remember .p-checkbox .p-checkbox-box {
+  border-radius: 5px;
+  border: 1.5px solid var(--border-strong);
+  background: var(--bg-primary);
+  transition: var(--transition-base);
+}
+
+.login-remember .p-checkbox .p-checkbox-box.p-highlight {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+html.dark-mode .login-remember .p-checkbox .p-checkbox-box {
+  background: #0d0d0d;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+html.dark-mode .login-remember .p-checkbox .p-checkbox-box.p-highlight {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ============================================
+   SUBMIT BUTTON
+   ============================================ */
+
+.login-submit-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  border-radius: var(--radius-sm);
+  min-height: 46px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.login-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bg-tertiary);
+}
+
+html.dark-mode .login-footer {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+.login-register-link {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.login-link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.login-link:hover {
+  color: var(--accent-hover, var(--accent));
+  text-decoration: underline;
+}
+
+.login-back-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  text-decoration: none;
+  gap: 0.3rem;
+}
+
+.login-back-link:hover {
+  color: var(--accent);
+}
+
+/* ============================================
+   INFO BOX (default login — deprecated)
+   ============================================ */
+
+.login-info {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-md);
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-size: 0.85rem;
+  color: #92400e;
+}
+
+html.dark-mode .login-info {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fcd34d;
+}
+
+.login-info > i {
+  color: #f59e0b;
+  font-size: 1.1rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.login-info code {
+  background: #fef3c7;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+}
+
+html.dark-mode .login-info code {
+  background: rgba(245, 158, 11, 0.3);
+}
+
+/* ============================================
+   LOGIN ERROR WRAPPER
+   ============================================ */
+
+.login-error-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.login-pending-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.login-pending-link:hover {
+  color: var(--accent);
+}
+
+.login-rejected-info,
+.login-suspended-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.login-rejected-info {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+html.dark-mode .login-rejected-info {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.login-suspended-info {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  color: #78350f;
+}
+
+html.dark-mode .login-suspended-info {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fcd34d;
+}
+
+.login-rejected-info > i,
+.login-suspended-info > i {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  font-size: 1rem;
+}
+
+/* ============================================
+   FORGOT PASSWORD
+   ============================================ */
+
+.forgot-icon,
+.forgot-success-icon,
+.forgot-icon-error {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.75rem;
+  color: white;
+}
+
+.forgot-icon {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  box-shadow: 0 10px 25px -8px rgba(59, 130, 246, 0.5);
+}
+
+.forgot-success-icon {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 10px 25px -8px rgba(16, 185, 129, 0.5);
+}
+
+.forgot-icon-error {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 10px 25px -8px rgba(239, 68, 68, 0.5);
+}
+
+.forgot-success {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.forgot-success-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #78350f;
+}
+
+html.dark-mode .forgot-success-info {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fcd34d;
+}
+
+.forgot-success-info > i {
+  color: #f59e0b;
+  font-size: 1.1rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.forgot-success-info strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.forgot-success-info p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.forgot-resend-btn {
+  background: none;
+  border: none;
+  color: #78350f;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+html.dark-mode .forgot-resend-btn {
+  color: #fcd34d;
+}
+
+.forgot-resend-btn:hover {
+  opacity: 0.8;
+}
+
+.forgot-success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .login-title {
+    font-size: 1.25rem;
+  }
+}

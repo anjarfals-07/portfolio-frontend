@@ -1,0 +1,226 @@
+/* ============================================
+   DARK MODE OVERRIDES
+   File ini HARUS di-import SETELAH _variables.css.
+   ============================================ */
+
+
+/* ============================================
+   1. VARIABLE OVERRIDE — DARK MODE
+   ============================================ */
+
+html.dark-mode {
+  --bg-primary: var(--dark-bg-primary, #0f172a) !important;
+  --bg-secondary: var(--dark-bg-secondary, #1e293b) !important;
+  --bg-tertiary: var(--dark-bg-tertiary, #334155) !important;
+
+  --text-primary: var(--dark-text-primary, #f1f5f9) !important;
+  --text-secondary: var(--dark-text-secondary, #cbd5e1) !important;
+  --text-muted: var(--dark-text-muted, #64748b) !important;
+
+  --border-color: var(--dark-border-color, #334155) !important;
+  --border-strong: var(--dark-border-strong, #475569) !important;
+
+  --accent: var(--dark-accent, #60a5fa) !important;
+  --accent-hover: var(--dark-accent-hover, #93c5fd) !important;
+  --accent-secondary: var(--dark-accent-secondary, #a78bfa) !important;
+  --accent-tertiary: var(--dark-accent-tertiary, #f472b6) !important;
+
+  --primary-color: var(--dark-accent, #60a5fa) !important;
+  --accent-color: var(--dark-accent-secondary, #a78bfa) !important;
+
+  --card-bg: var(--dark-card-bg, #1e293b) !important;
+  --card-border: var(--dark-card-border, #334155) !important;
+
+  --gradient-primary: var(
+    --dark-gradient-primary,
+    linear-gradient(135deg, #60a5fa, #a78bfa)
+  ) !important;
+  --gradient-accent: var(
+    --dark-gradient-accent,
+    linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%)
+  ) !important;
+
+  color-scheme: dark;
+}
+
+
+/* ============================================
+   2. PRIMEREACT COMPONENT OVERRIDES
+   ============================================ */
+
+/* ===== Input ===== */
+html.dark-mode .p-inputtext,
+html.dark-mode .p-inputtextarea,
+html.dark-mode .p-dropdown,
+html.dark-mode .p-chips,
+html.dark-mode .p-password input {
+  background: #0d0d0d;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+}
+
+html.dark-mode .p-inputtext:focus,
+html.dark-mode .p-inputtextarea:focus,
+html.dark-mode .p-chips:focus-within {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+/* ===== Dialog ===== */
+html.dark-mode .p-dialog {
+  background: #171717 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark-mode .p-dialog .p-dialog-header {
+  background: #171717 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+  color: #f1f5f9;
+}
+
+html.dark-mode .p-dialog .p-dialog-title {
+  color: #f1f5f9;
+}
+
+html.dark-mode .p-dialog .p-dialog-content {
+  background: #171717 !important;
+  color: #cbd5e1;
+}
+
+html.dark-mode .p-dialog .p-dialog-footer {
+  background: #171717 !important;
+  border-top-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+html.dark-mode .p-dialog-mask {
+  background: rgba(0, 0, 0, 0.65) !important;
+  backdrop-filter: blur(3px);
+}
+
+html.dark-mode .p-dialog-header-close,
+html.dark-mode .p-dialog-header-icon {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+html.dark-mode .p-dialog-header-close:hover,
+html.dark-mode .p-dialog-header-icon:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f1f5f9;
+}
+
+/* ===== DataTable ===== */
+html.dark-mode .p-datatable .p-datatable-tbody > tr {
+  background: transparent;
+  color: #cbd5e1;
+}
+
+html.dark-mode .p-datatable .p-datatable-tbody > tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+html.dark-mode .p-datatable .p-datatable-thead > tr > th {
+  background: #0d0d0d;
+  color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+html.dark-mode .p-datatable .p-datatable-tbody > tr > td {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== Message ===== */
+html.dark-mode .p-message {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+html.dark-mode .p-message.p-message-info {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+/* ===== Tag ===== */
+html.dark-mode .p-tag.p-tag-info {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+html.dark-mode .p-tag.p-tag-warning {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+}
+
+html.dark-mode .p-tag.p-tag-success {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+}
+
+/* ===== Button ===== */
+html.dark-mode .p-button.p-button-outlined.p-button-secondary {
+  color: #cbd5e1;
+  border-color: #475569;
+}
+
+html.dark-mode .p-button.p-button-outlined.p-button-secondary:hover {
+  background: rgba(148, 163, 184, 0.1);
+  border-color: #64748b;
+  color: #f1f5f9;
+}
+
+/* ===== Skeleton ===== */
+html.dark-mode .p-skeleton {
+  background: linear-gradient(90deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+}
+
+html.dark-mode .p-skeleton::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+}
+
+/* ===== Divider ===== */
+html.dark-mode .p-divider.p-divider-horizontal::before {
+  border-top-color: #334155;
+}
+
+/* ===== Toast ===== */
+html.dark-mode .p-toast .p-toast-message {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+html.dark-mode .p-toast .p-toast-message .p-toast-summary {
+  color: #f1f5f9;
+}
+
+html.dark-mode .p-toast .p-toast-message .p-toast-detail {
+  color: #94a3b8;
+}
+
+/* ===== Confirm Dialog ===== */
+html.dark-mode .p-confirm-dialog .p-dialog-content {
+  background: #171717;
+  color: #cbd5e1;
+}
+
+
+/* ============================================
+   3. LANDING PAGE — DARK MODE
+   ============================================ */
+
+[data-theme="dark"] .landing-hero-blob {
+  opacity: 0.25;
+}
+
+[data-theme="dark"] .landing-card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .landing-cta-card {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+}

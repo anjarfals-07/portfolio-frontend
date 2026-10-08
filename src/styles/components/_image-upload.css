@@ -1,0 +1,669 @@
+/* ============================================
+   IMAGE UPLOAD — MODERN
+   ============================================ */
+
+.iu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* ============================================
+   LABEL
+   ============================================ */
+
+.iu-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.iu-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.iu-label i {
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.iu-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.iu-remove-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--danger);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-base);
+  font-family: inherit;
+}
+
+.iu-remove-link:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  border-color: color-mix(in srgb, var(--danger) 30%, transparent);
+}
+
+/* ============================================
+   BODY
+   ============================================ */
+
+.iu-body {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.iu-body-circle {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+/* ============================================
+   PREVIEW
+   ============================================ */
+
+.iu-preview {
+  position: relative;
+  background: var(--bg-secondary);
+  border: 2px dashed var(--border-strong);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: var(--transition-base);
+  isolation: isolate;
+}
+
+.iu-preview:hover:not(.iu-busy) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg-secondary));
+  transform: translateY(-2px);
+  box-shadow:
+    0 15px 30px -15px rgba(59, 130, 246, 0.4),
+    0 0 0 4px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.iu-preview.has-value,
+.iu-has-value {
+  border-style: solid;
+  border-color: var(--border-color);
+}
+
+.iu-preview.iu-circle,
+.iu-circle {
+  border-radius: 50% !important;
+}
+
+.iu-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.iu-preview.iu-circle img {
+  border-radius: 50%;
+}
+
+.iu-preview:hover img {
+  transform: scale(1.05);
+}
+
+/* Overlay */
+.iu-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.1) 0%,
+    rgba(15, 23, 42, 0.75) 100%
+  );
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 2;
+}
+
+.iu-preview.iu-circle .iu-overlay {
+  border-radius: 50%;
+  align-items: center;
+}
+
+.iu-preview:hover .iu-overlay {
+  opacity: 1;
+}
+
+.iu-overlay-actions {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.4rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-pill);
+  transform: translateY(8px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.iu-preview:hover .iu-overlay-actions {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.iu-overlay-btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-base);
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.iu-overlay-btn:hover:not(:disabled) {
+  background: white;
+  transform: scale(1.12);
+  box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.4);
+}
+
+.iu-overlay-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   PLACEHOLDER
+   ============================================ */
+
+.iu-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+  z-index: 1;
+}
+
+.iu-placeholder-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 15%, transparent),
+    color-mix(in srgb, var(--accent-secondary) 15%, transparent)
+  );
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  transition: var(--transition-base);
+  box-shadow: 0 8px 18px -8px rgba(59, 130, 246, 0.4);
+}
+
+.iu-preview:hover .iu-placeholder-icon {
+  transform: scale(1.08) rotate(-6deg);
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 12px 24px -8px rgba(59, 130, 246, 0.6);
+}
+
+.iu-placeholder-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.iu-placeholder-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ============================================
+   PROGRESS OVERLAY
+   ============================================ */
+
+.iu-progress-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  z-index: 3;
+}
+
+.iu-circle .iu-progress-overlay {
+  border-radius: 50%;
+}
+
+.iu-progress-ring {
+  position: relative;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.iu-progress-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.iu-progress-ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 3;
+}
+
+.iu-progress-ring-fg {
+  fill: none;
+  stroke: #60a5fa;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.25s ease-out;
+  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.6));
+}
+
+.iu-progress-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.iu-progress-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ============================================
+   DRAG RING
+   ============================================ */
+
+.iu-drag-ring {
+  position: absolute;
+  inset: -6px;
+  border: 2px solid var(--accent);
+  border-radius: inherit;
+  pointer-events: none;
+  animation: iu-ring-pulse 1.5s ease-in-out infinite;
+  z-index: 4;
+}
+
+.iu-circle .iu-drag-ring {
+  border-radius: 50%;
+}
+
+@keyframes iu-ring-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.5;
+  }
+}
+
+/* ============================================
+   ACTIONS
+   ============================================ */
+
+.iu-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 150px;
+}
+
+.iu-btn {
+  justify-content: center;
+  width: 100%;
+}
+
+.iu-btn-primary {
+  background: var(--gradient-primary);
+  border: none;
+  transition: var(--transition-base);
+}
+
+.iu-btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px -6px rgba(59, 130, 246, 0.5);
+}
+
+.iu-compact-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.iu-compact-actions .iu-btn {
+  width: auto;
+}
+
+/* File info */
+.iu-file-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  margin-top: 0.25rem;
+}
+
+.iu-file-info i {
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.iu-file-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 0.05rem;
+}
+
+.iu-file-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.iu-file-size {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ============================================
+   PROGRESS LINE
+   ============================================ */
+
+.iu-progress-line {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.iu-progress-bar .p-progressbar {
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-pill);
+}
+
+.iu-progress-bar .p-progressbar-value {
+  background: var(--gradient-primary);
+  border-radius: var(--radius-pill);
+}
+
+/* ============================================
+   HINT
+   ============================================ */
+
+.iu-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.iu-hint i {
+  color: var(--accent);
+  font-size: 0.75rem;
+}
+
+/* ============================================
+   URL DIALOG
+   ============================================ */
+
+.iu-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.iu-dialog-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.iu-dialog-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.iu-dialog-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.iu-url-preview {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.iu-url-preview-box {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.iu-url-preview-box img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+}
+
+.iu-url-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--danger);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.iu-url-error i {
+  font-size: 1.5rem;
+}
+
+/* ============================================
+   PREVIEW DIALOG
+   ============================================ */
+
+.iu-preview-dialog .p-dialog-content {
+  padding: 0;
+}
+
+.iu-full-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iu-full-preview-img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 600px) {
+  .iu-preview {
+    width: 100% !important;
+    height: 200px !important;
+    border-radius: 16px !important;
+  }
+
+  .iu-preview.iu-circle {
+    width: 180px !important;
+    height: 180px !important;
+    border-radius: 50% !important;
+    margin: 0 auto;
+  }
+
+  .iu-actions {
+    width: 100%;
+  }
+
+  .iu-btn {
+    width: 100%;
+  }
+}
+
+/* ============================================
+   PREVIEW — Cursor & Focus
+   ============================================ */
+
+.iu-preview {
+  cursor: pointer;
+  outline: none;
+}
+
+.iu-preview:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.iu-preview.iu-busy {
+  cursor: wait;
+}
+
+/* Placeholder: kasih hint cursor yang jelas */
+.iu-placeholder {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+
+/* Hover state untuk empty preview — biar jelas bisa diklik */
+.iu-preview:not(.iu-has-value):hover .iu-placeholder-icon {
+  transform: scale(1.12) rotate(-6deg);
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 14px 28px -8px rgba(59, 130, 246, 0.6);
+}
+
+.iu-preview:not(.iu-has-value):hover .iu-placeholder-title {
+  color: var(--accent);
+}
+
+.iu-preview:not(.iu-has-value):hover .iu-placeholder-hint {
+  color: var(--accent);
+  opacity: 1;
+}
+
+/* Hint default agak transparan biar fokus ke icon */
+.iu-placeholder-hint {
+  transition: var(--transition-base);
+}
+
+
+
+/* ============================================================
+   IMAGE DELETE DIALOG — Animations
+   ============================================================ */
+
+@keyframes cvDialogFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes cvDialogScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
