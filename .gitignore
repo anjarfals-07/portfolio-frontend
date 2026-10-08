@@ -5,10 +5,8 @@ node_modules/
 .pnp
 .pnp.js
 .yarn/
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+.yarn/cache
+.yarn/unplugged
 
 # ============================================================
 # BUILD OUTPUT
@@ -26,32 +24,36 @@ out/
 # ============================================================
 # ENV FILES — JANGAN COMMIT!
 # ============================================================
+# Semua file env (kecuali .env.example)
 .env
 .env.local
 .env.*.local
 .env.development
 .env.production
 .env.staging
+.env.test
 *.env
 
-# Tapi .env.example BOLEH di-commit
+# ⭐ KECUALI .env.example — boleh di-commit
 !.env.example
 
 # ============================================================
-# IDE & EDITOR
+# VERCEL
+# ============================================================
+.vercel/
+.vercelignore
+
+# ============================================================
+# EDITOR & OS
 # ============================================================
 .vscode/*
 !.vscode/extensions.json
-!.vscode/settings.json
+!.vscode/settings.json.example
 .idea/
 *.iml
 *.swp
 *.swo
 *~
-
-# ============================================================
-# OS
-# ============================================================
 .DS_Store
 .DS_Store?
 ._*
@@ -71,7 +73,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-.pnpm-debug.log*
 
 # ============================================================
 # TESTING & COVERAGE
@@ -79,43 +80,68 @@ lerna-debug.log*
 coverage/
 .nyc_output/
 *.lcov
-.cypress/videos/
-.cypress/screenshots/
+.nyc_output
 
 # ============================================================
-# VERCEL
+# CACHE
 # ============================================================
-.vercel/
-.vercelignore
-# ⚠️ vercel.json JANGAN di-ignore — harus di-commit!
+.eslintcache
+.stylelintcache
+.cache/
+.temp/
+.tmp/
 
 # ============================================================
-# BACKEND (kalau monorepo — uncomment kalau perlu)
+# BACKUP & TEMP
 # ============================================================
-# backend/target/
-# backend/.mvn/
-# backend/mvnw
-# backend/mvnw.cmd
-# *.class
-# *.jar
-# *.war
-# !gradle/wrapper/gradle-wrapper.jar
-# .gradle/
-
-# ============================================================
-# TEMPORARY
-# ============================================================
-tmp/
-temp/
-*.tmp
 *.bak
 *.old
 *.orig
+*.backup
 
 # ============================================================
-# MISC
+# NPM / YARN / PNPM
+# ============================================================
+.npm/
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# ============================================================
+# TYPESCRIPT
 # ============================================================
 *.tsbuildinfo
-.eslintcache
-.stylelintcache
-.prettier-cache
+.vite-tsconfig.json
+
+# ============================================================
+# VITE
+# ============================================================
+.vite/
+vite.config.ts.timestamp-*
+
+# ============================================================
+# BACKEND / MONOREPO (opsional — uncomment kalau perlu)
+# ============================================================
+# backend/
+# server/
+# .mvn/
+# mvnw
+# mvnw.cmd
+# target/
+# *.jar
+# *.war
+
+# ============================================================
+# DOCKER (opsional)
+# ============================================================
+# Dockerfile.local
+# docker-compose.local.yml
+
+# ============================================================
+# CI/CD (opsional)
+# ============================================================
+# .github/workflows/*
+# !.github/workflows/deploy.yml
